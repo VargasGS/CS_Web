@@ -1,0 +1,55 @@
+<div class="parent clearfix">
+  <div class="bg-illustration">
+  
+
+    <div class="burger-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+ <!--  <h1 style="color: white; font-size: large;">“Ofrecer servicios de salud con calidad y sentido humanístico, de modo que propicie condiciones que contribuyan con el desarrollo integral tanto de asociados y trabajadores, como del país”.</h1>  -->  
+
+  </div>
+    
+    <div class="login">
+      <div class="container">
+        <div class="container-imagen">
+          <br>
+          <img class= "imagen" src="../../../assets/logo-fondo-blanco.png"  width="300" height="300">
+        </div>
+
+       
+        <div class="login-form">
+          <form [formGroup]="loginForm" >
+            <input type="text" [formControl]="Usuario" class="form-control" id="inputUsuario" placeholder="Usuario"/>
+            <small style="color: red;" *ngIf="(Usuario.dirty || Usuario.touched) && Usuario.errors">
+              <ng-container [ngSwitch]="Usuario.value">
+              <ng-container *ngSwitchCase="''">El usuario es requerido</ng-container>
+              </ng-container>
+            </small>
+            <input type="password" class="form-control" [formControl]="Contrasena" id="inputContrasena" placeholder="Contraseña"/>
+            <small style="color: red;" *ngIf="(Contrasena.dirty || Contrasena.touched) && Contrasena.errors">
+              <ng-container [ngSwitch]="Contrasena.value">
+              <ng-container  *ngSwitchCase="''"> La contraseña es requerida</ng-container>
+              </ng-container>
+            </small>
+
+            <div class="remember-form">
+             
+            </div>
+
+            <br>
+
+            <div *ngIf="error" style="color: red;">
+              {{ errorMessage }}
+            </div>
+           
+            <div class="field">
+              <button type="submit" class="btn btn-danger boton-guardar" [disabled]="!loginForm.valid" (click)="validarIngreso()" style="width: 100%;">Ingresar</button>
+            </div>
+          </form>
+        </div>
+    
+      </div>
+      </div>

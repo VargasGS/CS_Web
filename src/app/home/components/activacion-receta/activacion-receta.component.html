@@ -1,0 +1,111 @@
+
+<div class="center">
+  <h1 class="titulo">ACTIVACIÓN DE RECETA</h1>
+</div>
+
+<br />
+<div style="justify-content: center">
+  <form [formGroup]="activacionRecetaForm" class="row g-3 container container1" >
+    <div class="col-md-6">
+      <label for="lbCedula" class="form-label">Número de cédula o asegurado</label>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" [formControl]="Cedula" pTooltip="Nacionales: 101230125 Extranjeros: 123455766541"  tooltipPosition="bottom" aria-label="Example text with button addon" aria-describedby="button-addon1">
+        <button class="btn btn-danger" style="background-color: #c4121a;" (click)="CargarAdscritos()" type="button" id="button-addon1">  <i class="pi pi-search"></i></button>
+      </div>
+  <small *ngIf="(Cedula.dirty || Cedula.touched) && Cedula.errors" ngClass="msj-error">
+    <ng-container [ngSwitch]="Cedula.value">
+    <ng-container  *ngSwitchCase="''" > La identificación es requerida</ng-container>
+    <ng-container *ngSwitchDefault>La identificación es invalida, solo números</ng-container>
+    </ng-container>
+  </small>
+
+    </div>
+    <div class="col-md-6">
+      <label for="lbNombre" class="form-label">Nombre</label>
+      <input type="text" [formControl]="Nombre" class="form-control" id="inputNombre" />
+      <br>
+      <small *ngIf="(Nombre.dirty || Nombre.touched) && Nombre.errors" ngClass="msj-error">
+        <ng-container [ngSwitch]="Nombre.value">
+        <ng-container *ngSwitchCase="''"> El nombre es requerido</ng-container>
+        <ng-container *ngSwitchDefault>El nombre es inválido, solo letras</ng-container>
+        </ng-container>
+      </small>
+    </div>
+    <div class="col-md-6">
+        <label for="lbApellido1" class="form-label">Primer Apellido</label>
+        <input type="text" class="form-control" [formControl]="Apellido1" id="inputApellido1" />
+        <br>
+        <small *ngIf="(Apellido1.dirty || Apellido1.touched) && Apellido1.errors" ngClass="msj-error">
+          <ng-container [ngSwitch]="Apellido1.value">
+          <ng-container *ngSwitchCase="''"> El primer apellido es requerido</ng-container>
+          <ng-container *ngSwitchDefault>El apellido es inválido, solo letras</ng-container>
+          </ng-container>
+        </small>
+      </div>
+      <div class="col-md-6">
+        <label for="lbApellido2" class="form-label">Segundo Apellido</label>
+        <input type="text" class="form-control" [formControl]="Apellido2" id="inputApellido2" />
+        <br>
+        <small *ngIf="(Apellido2.dirty || Apellido2.touched) && Apellido2.errors" ngClass="msj-error">
+          <ng-container [ngSwitch]="Apellido2.value">
+          <ng-container *ngSwitchCase="''"> El segundo apellido es requerido</ng-container>
+          <ng-container *ngSwitchDefault>El apellido es invalido, solo letras</ng-container>
+          </ng-container>
+        </small>
+      </div>
+
+      <div class="col-md-6">
+        <label for="lbFechaAtencion" class="form-label">Fecha de atención</label>
+      <br>
+        <p-calendar [formControl]="FechaAtencion" inputStyleClass="styleInputDate" appendTo="body" dateFormat="dd/mm/yy" ></p-calendar>
+      </div>
+      <div class="col-md-6">
+        <label for="lbFechaRetiroComp" class="form-label">Fecha de abscripción
+        </label>  <a [routerLink]="" style="color: red;" (click)="op.toggle($event)"> Instrucciones</a>
+        <br>
+        <p-calendar [formControl]="FechaRetiro"  inputStyleClass="styleInputDate" appendTo="body" dateFormat="dd/mm/yy" ></p-calendar>
+      </div>
+      <div class="col-md-6">
+        <label for="lbCorreo" class="form-label">Correo</label>
+        <input type="email" class="form-control" [formControl]="Correo" id="inputCorreo"  />
+        <br>
+        <small *ngIf="(Correo.dirty || Correo.touched) && Correo.errors" ngClass="msj-error">
+          <ng-container [ngSwitch]="Correo.value">
+          <ng-container *ngSwitchCase="''"> El correo es requerido</ng-container>
+          <ng-container *ngSwitchDefault>El correo es inválido</ng-container>
+          </ng-container>
+        </small>
+      </div>
+
+      <div class="col-md-6">
+        <label for="lbLugarRetiro" class="form-label">Lugar de retiro</label>
+        <br>
+        <select class="form-select form-control" [formControl]="IdLugarRetiro" aria-label="Default select example">
+          <option value="-1">Seleccione</option>
+          <option id="IdLugarRetiro" *ngFor="let obj of objLugarRetiro" [value]="obj.idLugarRetiro">
+            {{obj.nombreLugar }}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="lbLugarCreacion" class="form-label">Su receta fue realizada en</label>
+        <br>
+        <select class="form-select form-control" [formControl]="IdCreacionReceta" aria-label="Default select example">
+          <option value="-1">Seleccione</option>
+          <option id="cbLugarAtencion" *ngFor="let obj of objLugarAtencion" [value]="obj.idAtencion">
+            {{ obj.nombreLugar }}
+          </option>
+        </select>
+      </div>
+     
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button type="submit" class="btn btn-success" [disabled]="!activacionRecetaForm.valid" (click)="GuardarActivacionReceta()" >Guardar</button>
+      <button  class="btn btn-warning"  (click)="verEstadoReceta()" >Ver estado receta</button>
+    </div>
+  </form>
+</div>
+<br>
+<p-overlayPanel #op>
+  <img src="../../../assets/comprobante.png" alt="product" width="400" height="500" />
+</p-overlayPanel>
+<a (click)="op.toggle($event)" icon="pi pi-image" ></a>

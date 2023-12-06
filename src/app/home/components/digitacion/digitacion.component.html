@@ -1,0 +1,61 @@
+<div class="center">
+    <h1 class="titulo">Digitación</h1>
+</div>
+
+<p-table
+#dt
+id="dt"
+[value]="objReceta"
+[rows]="10"
+[paginator]="true"
+[globalFilterFields]="['idReceta', 'cedula','nombre', 'fechaRegistroComprobante','fechaAtencion','lugarRetiro','digitador', 'estado']"
+[rowHover]="true"
+dataKey="idReceta"
+currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+[showCurrentPageReport]="true"
+>
+<ng-template pTemplate="caption">
+    
+    <h5 class="m-0">Listado de recetas</h5>
+    <div class="d-flex justify-content-between">
+      
+    
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Search..." />
+              
+          </span>
+     
+      
+      <button pButton pRipple label="Exportar" icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success mr-2"></button>
+      </div>
+</ng-template>
+<ng-template pTemplate="header">
+    <tr>
+        <th pSortableColumn="idReceta" style="min-width:15rem">ID <p-sortIcon  field="idReceta"></p-sortIcon></th>
+        <th pSortableColumn="cedula" style="min-width:15rem">Cédula <p-sortIcon field="cedula"></p-sortIcon></th>
+        <th pSortableColumn="nombre" style="min-width:15rem">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+        <th pSortableColumn="fechaRegistroComprobante">Fecha Retiro <p-sortIcon field="fechaRegistroComprobante"></p-sortIcon></th>
+        <th pSortableColumn="fechaAtencion">Fecha Atención <p-sortIcon field="fechaAtencion"></p-sortIcon></th>
+        <th pSortableColumn="lugarRetiro">Ebais<p-sortIcon field="lugarRetiro"></p-sortIcon></th>
+        <th pSortableColumn="digitador">Digitador<p-sortIcon field="digitador"></p-sortIcon></th>
+        <th pSortableColumn="estado">Estado<p-sortIcon field="estado"></p-sortIcon></th>
+    </tr>
+</ng-template>
+<ng-template pTemplate="body" let-receta>
+    <tr>
+        
+        <td>{{ receta.idReceta }}</td>
+        <td>{{ receta.cedula }}</td>
+        <td>{{ receta.nombre + ' ' + receta.apellido1 + ' ' + receta.apellido2  }}</td>
+        <td>{{ receta.fechaRegistroComprobante | date:"medium" }}</td>
+        <td>{{ receta.fechaAtencion | date:"medium"}}</td>
+        <td>{{ receta.lugarRetiro }}</td>
+        <td>digitador</td>
+        <td>{{ receta.estadoReceta }}</td>
+    </tr>
+</ng-template>
+<ng-template pTemplate="summary">
+  
+</ng-template>
+</p-table>

@@ -1,0 +1,159 @@
+<div class="center">
+    <h1 class="titulo">Mantenimiento de usuarios</h1>
+</div>
+
+
+    <p-toast></p-toast>
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nuevo usuario" icon="pi pi-plus" (click)="modalRegistroUsuario()" class="p-button-success mr-2" ></button>
+            
+        </ng-template>
+
+        <ng-template pTemplate="right">
+         
+           
+        </ng-template>
+    </p-toolbar>
+
+    <p-table
+    #dt
+    [value]="objUsuarios"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="['idUsuario', 'nombre', 'apellido1', 'apellido2', 'usuario', 'correo', 'idRol']"
+    [rowHover]="true"
+    dataKey="idUsuario"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+>
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <h5 class="m-0">Listado de usuarios</h5>
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" [(ngModel)]="searchTable"  placeholder="" />
+          </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="idUsuario" style="min-width:15rem">ID <p-sortIcon field="idUsuario"></p-sortIcon></th>
+            <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+            <th pSortableColumn="apellido1" style="min-width:10rem">Primer Apellido <p-sortIcon field="apellido1"></p-sortIcon></th>
+            <th pSortableColumn="apellido2">Segundo Apellido <p-sortIcon field="apellido2"></p-sortIcon></th>
+            <th pSortableColumn="usuario" style="min-width:10rem">Usuario <p-sortIcon field="usuario"></p-sortIcon></th>
+            <th pSortableColumn="correo" style="min-width:10rem">Correo <p-sortIcon field="correo"></p-sortIcon></th>
+            <th pSortableColumn="idRol" style="min-width:10rem">Rol <p-sortIcon field="idRol"></p-sortIcon></th>
+            <th>Acciones</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-usuarios>
+        <tr>
+            
+            <td>{{ usuarios.idUsuario }}</td>
+            <td>{{ usuarios.nombre }}</td>
+            <td>{{ usuarios.apellido1 }}</td>
+            <td>{{ usuarios.apellido2 }}</td>
+            <td>{{ usuarios.usuario }}</td>
+            <td>{{ usuarios.correo }}</td>
+            <td> <div *ngIf="usuarios.idRol === 1; then thenBlock else elseBlock"></div>
+              <ng-template #thenBlock>Administrador</ng-template>
+              <ng-template #elseBlock>Funcionario</ng-template>
+              </td>
+            <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editarUsuario(usuarios)"></button>
+                
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      
+    </ng-template>
+</p-table>
+
+<p-dialog  [(visible)]="productDialog" [style]="{ width: '700px' }" header={{labelModal}} [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <form [formGroup]="registroForm"  >
+            <div class="field">
+                <label for="lbNombre" class="form-label">Usuario</label>
+                <input type="text" [formControl]="Usuario" class="form-control" id="inputUsuario" />
+                <small *ngIf="(Usuario.dirty || Usuario.touched) && Usuario.errors">
+                  <ng-container [ngSwitch]="Usuario.value">
+                  <ng-container *ngSwitchCase="''">El usuario es requerido</ng-container>
+                  </ng-container>
+                </small>
+              </div>
+            <br>
+              <div class="field">
+                <label for="lbNombre" class="form-label">Nombre</label>
+                <input type="text" [formControl]="Nombre" class="form-control" id="inputNombre" />
+                <small *ngIf="(Nombre.dirty || Nombre.touched) && Nombre.errors">
+                  <ng-container [ngSwitch]="Nombre.value">
+                  <ng-container *ngSwitchCase="''"> La identificación es requerida</ng-container>
+                  <ng-container *ngSwitchDefault>La identificación es invalida, solo números</ng-container>
+                  </ng-container>
+                </small>
+              </div>
+              <br>
+              <div class="field">
+                <label for="lbApellido1" class="form-label">Primer Apellido</label>
+                <input type="text" class="form-control" [formControl]="Apellido1" id="inputApellido1" />
+                <small *ngIf="(Apellido1.dirty || Apellido1.touched) && Apellido1.errors">
+                  <ng-container [ngSwitch]="Apellido1.value">
+                  <ng-container *ngSwitchCase="''"> El primer apellido es requerida</ng-container>
+                  <ng-container *ngSwitchDefault>El apellido es invalido, solo letras</ng-container>
+                  </ng-container>
+                </small>
+              </div>
+              <br>
+              <div class="field">
+                <label for="lbApellido2" class="form-label">Segundo Apellido</label>
+                <input type="text" class="form-control" [formControl]="Apellido2" id="inputApellido2" />
+                <small *ngIf="(Apellido2.dirty || Apellido2.touched) && Apellido2.errors">
+                  <ng-container [ngSwitch]="Apellido2.value">
+                  <ng-container *ngSwitchCase="''"> El segundo apellido es requerida</ng-container>
+                  <ng-container *ngSwitchDefault>El apellido es invalido, solo letras</ng-container>
+                  </ng-container>
+                </small>
+              </div>
+              <br>
+              <div class="field">
+                <label for="lbCorreo" class="form-label">Correo</label>
+                <input type="email" class="form-control" [formControl]="Correo" id="inputCorreo" />
+                <small *ngIf="(Correo.dirty || Correo.touched) && Correo.errors">
+                  <ng-container [ngSwitch]="Correo.value">
+                  <ng-container *ngSwitchCase="''"> El correo es requerido</ng-container>
+                  <ng-container *ngSwitchDefault>El correo es inválido</ng-container>
+                  </ng-container>
+                </small>
+              </div>
+              <br>
+              <div class="field">
+                <label for="lbContrasena" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" [formControl]="Contrasena" id="inputContrasena" />
+                <small *ngIf="(Contrasena.dirty || Contrasena.touched) && Contrasena.errors">
+                  <ng-container [ngSwitch]="Contrasena.value">
+                  <ng-container *ngSwitchCase="''"> La contraseña es requerida</ng-container>
+                  </ng-container>
+                </small>
+              </div>
+              <div class="field">
+                <label for="lbRol" class="form-label">Rol</label>
+                <br>
+                <select class="form-select form-control" [formControl]="Rol" aria-label="Default select example">
+                  <option value="-1">Seleccione</option>
+                  <option id="IdRol" *ngFor="let obj of objRoles" [value]="obj.idRol">
+                    {{obj.descripcion }}
+                  </option>
+                </select>
+              </div>
+              <br>
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" class="btn btn-success" (click)="registraUsuario()">{{labelBoton}}</button>
+        <button type="button" class="btn btn-danger" (click)="hideDialog()">Cancelar</button>
+      
+    </ng-template>
+</p-dialog>

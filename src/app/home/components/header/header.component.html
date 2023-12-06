@@ -1,0 +1,30 @@
+<div class="layout-topbar">
+    <a class="layout-topbar-logo" routerLink="/pages/dashboard">
+        <img src="../../../assets/logo-fondo-rojo.png" alt="logo" width="150" height="150">
+      
+    </a>
+    <span>ÁREA DE SALUD DESAMPARADOS 2</span>
+
+    <div #topbarmenu class="layout-topbar-menu" >
+      
+        <nb-user *ngIf="mostrar"  style="color: white;" name={{nombre}} ></nb-user>
+           
+        <button *ngIf="mostrar" class="p-link layout-topbar-button" (click)="menu.toggle($event)">
+            <i class="pi pi-user"></i>
+
+            
+            <span>Profile</span>
+        </button>
+        <button *ngIf="mostrar" class="p-link layout-topbar-button" (click)="menu1.toggle($event)" >
+            <i class="pi pi-cog"></i>
+            <span>Settings</span>
+        </button>
+
+        <p-toast></p-toast>
+        <p-menu #menu [model]="items" [popup]="true"></p-menu>
+
+        <p-toast></p-toast>
+        <p-menu #menu1 [model]="itemsAdmin" [popup]="true"></p-menu>
+        
+    </div>
+</div>
