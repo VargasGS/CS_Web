@@ -14,4 +14,9 @@ export class DashboardComponent implements OnInit {
   // this.reloadComponent()
   }
 
+rutaActivacion(){
+  this.router.navigate(['pages/activacion-receta'])
+}
+  
+
 }
