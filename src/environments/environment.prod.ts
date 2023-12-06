@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrlCatalogos: 'http://www.cs.somee.com/swagger/index.html',
+  apiUrlCatalogos: 'https://cs.somee.com/swagger/index.html',
 };
