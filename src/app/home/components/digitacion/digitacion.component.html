@@ -5,10 +5,11 @@
 <p-table
 #dt
 id="dt"
+[(selection)]="selectedReceta"
 [value]="objReceta"
 [rows]="10"
 [paginator]="true"
-[globalFilterFields]="['idReceta', 'cedula','nombre', 'fechaRegistroComprobante','fechaAtencion','lugarRetiro','digitador', 'estado']"
+[globalFilterFields]="['idReceta', 'cedula','nombre', 'fechaAbscripcion','fechaAtencion','lugarRetiro', 'estado','observacion']"
 [rowHover]="true"
 dataKey="idReceta"
 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -30,32 +31,49 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       <button pButton pRipple label="Exportar" icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success mr-2"></button>
       </div>
 </ng-template>
+
 <ng-template pTemplate="header">
     <tr>
+      
+        <th style="width: 4rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
         <th pSortableColumn="idReceta" style="min-width:15rem">ID <p-sortIcon  field="idReceta"></p-sortIcon></th>
         <th pSortableColumn="cedula" style="min-width:15rem">Cédula <p-sortIcon field="cedula"></p-sortIcon></th>
         <th pSortableColumn="nombre" style="min-width:15rem">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
-        <th pSortableColumn="fechaRegistroComprobante">Fecha Retiro <p-sortIcon field="fechaRegistroComprobante"></p-sortIcon></th>
+        <th pSortableColumn="fechaAbscripcion">Fecha Abscripción<p-sortIcon field="fechaAbscripcion"></p-sortIcon></th>
         <th pSortableColumn="fechaAtencion">Fecha Atención <p-sortIcon field="fechaAtencion"></p-sortIcon></th>
         <th pSortableColumn="lugarRetiro">Ebais<p-sortIcon field="lugarRetiro"></p-sortIcon></th>
-        <th pSortableColumn="digitador">Digitador<p-sortIcon field="digitador"></p-sortIcon></th>
         <th pSortableColumn="estado">Estado<p-sortIcon field="estado"></p-sortIcon></th>
+        <th pSortableColumn="observacion">Observación<p-sortIcon field="observacion"></p-sortIcon></th>
     </tr>
 </ng-template>
 <ng-template pTemplate="body" let-receta>
     <tr>
-        
+        <td>
+            <p-tableCheckbox [value]="receta"></p-tableCheckbox>
+        </td>
         <td>{{ receta.idReceta }}</td>
         <td>{{ receta.cedula }}</td>
         <td>{{ receta.nombre + ' ' + receta.apellido1 + ' ' + receta.apellido2  }}</td>
-        <td>{{ receta.fechaRegistroComprobante | date:"medium" }}</td>
+        <td>{{ receta.fechaAbscripcion | date:"medium" }}</td>
         <td>{{ receta.fechaAtencion | date:"medium"}}</td>
         <td>{{ receta.lugarRetiro }}</td>
-        <td>digitador</td>
         <td>{{ receta.estadoReceta }}</td>
+      <td>
+        <textarea rows="5" cols="30"  [(ngModel)]="receta.observacion" ></textarea>
+      </td>
     </tr>
 </ng-template>
 <ng-template pTemplate="summary">
   
 </ng-template>
 </p-table>
+<br>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button type="submit" class="btn btn-success" (click)="marcarDigitada()">Marcar digitada</button>
+    <button  class="btn btn-warning"   >Marcar rechazada</button>
+  </div>
+
+  <br>

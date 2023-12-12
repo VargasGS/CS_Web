@@ -48,9 +48,6 @@ export class LoginComponent implements OnInit {
         next: (res) => {
           this.usuariosServicio.guardarToken(res.token);
           const tokenPayload = this.usuariosServicio.decodeToken();
-          console.log('preuba')
-          console.log(tokenPayload)
-          console.log(tokenPayload.unique_name)
           this.usuariosServicio.setFullNameForStore(tokenPayload.unique_name.toString());
           this.usuariosServicio.setRoleForStore(tokenPayload.role.toString());
 

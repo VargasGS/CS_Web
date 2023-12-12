@@ -8,7 +8,7 @@ export interface ActivacionReceta {
     apellido2:string;   
     correo:string;   
     fechaAtencion:string;   
-    fechaRegistroComprobante:string;   
+    fechaAbscripcion:string;   
     idLugarRetiro:number;  
     idEstadoReceta:number;  
     idAtencion:number;  
@@ -22,13 +22,14 @@ export interface RecetaActiva{
     apellido2:string;   
     correo:string;   
     fechaAtencion:Date;   
-    fechaRegistroComprobante:Date;   
+    fechaAbscripcion:Date;   
     idLugarRetiro:number;  
     idEstadoReceta:number;  
     idAtencion:number; 
     LugarRetiro:string;  
     EstadoReceta:string;  
     Atencion:string;   
+    Observacion:string
 }
 
 export interface EstadoReceta{
@@ -38,7 +39,7 @@ export interface EstadoReceta{
     apellido1:string;   
     apellido2:string;   
     fechaAtencion:Date;   
-    fechaRegistroComprobante:Date;   
+    fechaAbscripcion:Date;   
     idLugarRetiro:number;  
     idEstadoReceta:number;  
     idAtencion:number; 

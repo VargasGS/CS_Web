@@ -72,14 +72,12 @@ export class UsuariosApi {
 
       const jwt = new JwtHelperService();
       const token = this.obtenerToken()!;
-      console.log(jwt.decodeToken(token))
       return jwt.decodeToken(token);
     }
 
 
     getNombreFromToken(){
       this.userPayload = this.decodeToken();
-      console.log(this.userPayload)
       return this.userPayload.unique_name;
      
     }

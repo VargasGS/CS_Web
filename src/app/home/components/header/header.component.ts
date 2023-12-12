@@ -43,7 +43,6 @@ export class HeaderComponent implements OnInit {
     this.usuariosServicio.getFullNameFromStore().subscribe(
       {
         next: (res: any) => {
-   console.log(res)
          this.nombre = this.usuariosServicio.getNombreFromToken();
       
          this.rol= this.usuariosServicio.getRoleFromToken();

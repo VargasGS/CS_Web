@@ -63,9 +63,9 @@ export class ActivacionRecetaComponent implements OnInit {
 
       translateService.setDefaultLang('es');
       this.Cedula = new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]);
-      this.Nombre = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')]);
-      this.Apellido1 = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')]);
-      this.Apellido2 = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')]);
+      this.Nombre = new FormControl('', [Validators.required, Validators.pattern('[a-zA-ZñÑ ]*')]);
+      this.Apellido1 = new FormControl('', [Validators.required, Validators.pattern('[a-zA-ZñÑ ]*')]);
+      this.Apellido2 = new FormControl('', [Validators.required, Validators.pattern('[a-zA-ZñÑ ]*')]);
       this.Correo = new FormControl('', [Validators.required, Validators.email]);
       this.FechaAtencion = new FormControl('', Validators.required);
       this.FechaRetiro = new FormControl('', Validators.required);
@@ -217,14 +217,9 @@ export class ActivacionRecetaComponent implements OnInit {
     var fechaR = new Date(this.FechaRetiro.value);
     var date = new Date();
     const time = date.getTime();
-
-    console.log(time);
     var fechaAtencion = new Date(fechaA.setTime(time));
     var fechaRetiro = new Date(fechaR.setTime(time));
    
-    console.log(fechaAtencion);
-    console.log(fechaRetiro);
-
     const datePipe = new DatePipe('en-US');
     const fechaFormateadaA = datePipe.transform(fechaAtencion, 'yyyy-MM-ddTHH:mm:ss');
     const fechaFormateadaR = datePipe.transform(fechaRetiro, 'yyyy-MM-ddTHH:mm:ss');
@@ -237,17 +232,16 @@ export class ActivacionRecetaComponent implements OnInit {
       apellido2: (this.Apellido2.value).toUpperCase(),
       correo: this.Correo.value,
       fechaAtencion: fechaFormateadaA,
-      fechaRegistroComprobante: fechaFormateadaR,
+      fechaAbscripcion: fechaFormateadaR,
       idLugarRetiro: this.IdLugarRetiro.value,
       idEstadoReceta: 1,
       idAtencion: this.IdCreacionReceta.value
     } as ActivacionReceta;
 
-    
 
-     console.log(infoActivacion)
-
-     if(infoActivacion.idAtencion!=-1 && infoActivacion.idLugarRetiro!=-1){
+     if(infoActivacion.idAtencion!=-1 && infoActivacion.idLugarRetiro!=-1 && infoActivacion.cedula!=""
+     && infoActivacion.nombre!="" && infoActivacion.apellido1!="" && infoActivacion.apellido2!=""
+     && infoActivacion.correo!=""){
      
       this.activacionRecetaServicio.activarReceta(infoActivacion).subscribe(
         {
@@ -290,6 +284,7 @@ export class ActivacionRecetaComponent implements OnInit {
   }
 
   verEstadoReceta(){
+
     this.router.navigate(['pages/estadoReceta']);
   }
   }
