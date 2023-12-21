@@ -29,7 +29,7 @@ export interface RecetaActiva{
     LugarRetiro:string;  
     EstadoReceta:string;  
     Atencion:string;   
-    Observacion:string
+    observacion:string
 }
 
 export interface EstadoReceta{
