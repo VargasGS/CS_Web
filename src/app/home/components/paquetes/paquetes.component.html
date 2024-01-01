@@ -1,0 +1,92 @@
+<div class="center">
+    <h1 class="titulo">ALISTADO DE PAQUETES </h1>
+</div>
+
+
+
+<p-table
+#dt
+id="dt"
+[value]="objRecetasDigitadas"
+[(selection)]="selectedReceta"
+[rows]="10"
+[paginator]="true"
+[globalFilterFields]="['cedula','nombre', 'ebais','fechaDigitacion','digitador']"
+[rowHover]="true"
+dataKey="cedula"
+currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+[showCurrentPageReport]="true"
+>
+<ng-template pTemplate="caption">
+    
+  
+    <div class="d-flex justify-content-between ">
+       
+       
+        <div class="col-md-3" style="display: flex; align-items: center;">
+           
+            <select class="form-select form-control" [formControl]="IdLugarRetiro" aria-label="Default select example">
+              <option value="-1">Seleccione</option>
+              <option id="IdLugarRetiro" *ngFor="let obj of objLugarRetiro" [value]="obj.idLugarRetiro">
+                {{obj.nombreLugar }}
+              </option>
+            </select>
+            <button  (click)="CargarRecetasDigitadas()" class="btn btn-danger" style="background-color: #c4121a; margin-left: 10px;"> <i class="pi pi-search"></i></button>
+        </div>
+    
+            
+        <div class="col-md-3">
+            
+            <button pButton pRipple label="Generar listado" (click)="GenerarPaquete()" class="p-button-success mr-2"></button>
+          </div>
+        </div>
+
+      <br>
+
+      <h5 class="m-0">Listado de recetas digitadas</h5>
+</ng-template>
+
+<ng-template pTemplate="header">
+    <tr>
+      
+        <th style="width: 4rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+       
+        <th pSortableColumn="cedula" style="min-width:15rem">Cédula <p-sortIcon field="cedula"></p-sortIcon></th>
+        <th pSortableColumn="nombre" style="min-width:15rem">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+        <th pSortableColumn="ebais">Ebais<p-sortIcon field="ebais"></p-sortIcon></th>
+        <th pSortableColumn="fechaDigitacion">Fecha digitación<p-sortIcon field="fechaDigitacion"></p-sortIcon></th>
+        <th pSortableColumn="digitador">Digitador<p-sortIcon field="digitador"></p-sortIcon></th>
+      
+    </tr>
+</ng-template>
+<ng-template pTemplate="body" let-receta>
+    <tr>
+        <td>
+            <p-tableCheckbox [value]="receta"></p-tableCheckbox>
+        </td>
+    
+        <td>{{ receta.cedula }}</td>
+        <td>{{ receta.nombre}}</td>
+        <td>{{ receta.ebais }}</td>
+        <td>{{ receta.fechaDigitacion | date:"medium" }}</td>
+        <td>{{ receta.digitador }}</td>
+     
+    </tr>
+</ng-template>
+<ng-template pTemplate="summary">
+  
+</ng-template>
+</p-table>
+<br>
+
+  <br>
+
+
+  
+<div id="content"  #content >
+    <span>preuba</span>
+  </div>
+  
+  <button (click)="generarPDF()">Generar PDF</button>

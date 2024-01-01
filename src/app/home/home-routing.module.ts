@@ -8,6 +8,7 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { DigitacionComponent } from './components/digitacion/digitacion.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { EstadoRecetaComponent } from './components/estado-receta/estado-receta.component';
+import { PaquetesComponent } from './components/paquetes/paquetes.component';
 
 
 const routes: Routes = [
@@ -41,6 +42,10 @@ const routes: Routes = [
       {
         path: 'estadoReceta',
         component: EstadoRecetaComponent,
+      },
+      {
+        path: 'paquetes',
+        component: PaquetesComponent,
       }
     ]
  

@@ -13,11 +13,21 @@ export interface DigitacionReceta {
     idAtencion:number;  
     digitador:string;   
     observacion:string;   
+    fechaDigitacion:Date
+}
+
+export interface RecetaDigitada {
+    cedula:string;   
+    nombre:string;   
+    fechaDigitacion:Date;   
+    ebais:string;
+    digitador:string
 }
 
 
 
 export abstract class DigitacionRecetaData {
     abstract digitarReceta(item: DigitacionReceta[]): Observable<DigitacionReceta>;
-
+    abstract listRecetasDigitadas(): Observable<RecetaDigitada[]>;
+    abstract listRecetaDigitadaByEbais(cedula: string): Observable<RecetaDigitada[]>;
 }

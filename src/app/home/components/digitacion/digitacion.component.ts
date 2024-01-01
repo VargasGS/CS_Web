@@ -100,7 +100,8 @@ export class DigitacionComponent implements OnInit {
       idEstadoReceta: 2,
       idAtencion: receta.idAtencion,
       observacion: receta.observacion,
-      digitador: this.nombre
+      digitador: this.nombre,
+      fechaDigitacion:new Date()
     } as DigitacionReceta;
 
     infoReceta.push(dato);
@@ -150,8 +151,9 @@ export class DigitacionComponent implements OnInit {
       idLugarRetiro: receta.idLugarRetiro,
       idEstadoReceta: 3,
       idAtencion: receta.idAtencion,
-      observacion: "",
-      digitador: "fd"
+      observacion:receta.observacion,
+      digitador: this.nombre,
+      fechaDigitacion:new Date()
     } as DigitacionReceta;
 
     infoReceta.push(dato);

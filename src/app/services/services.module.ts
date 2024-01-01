@@ -22,6 +22,9 @@ import { UsuariosService } from './autenticacion/usuarios.service';
 import { DigitacionRecetaApi } from './digitacion-receta/digitacion-receta.api';
 import { DigitacionRecetaData } from '../models/digitacion-receta/digitacion-receta';
 import { DigitacionRecetaService } from './digitacion-receta/digitacion-receta.service';
+import { PaquetesData } from '../models/paquetes/paquetes';
+import { PaquetesService } from './paquetes/paquetes.service';
+import { PaquetesApi } from './paquetes/paquetes.api';
 
 
 
@@ -33,7 +36,8 @@ PacientesApi,
 AdscritosApi,
 ActivacionRecetaApi,
 UsuariosApi,
-DigitacionRecetaApi
+DigitacionRecetaApi,
+PaquetesApi
 ];
 const SERVICES = [
   { provide: LugarRetiroData, useClass: LugarRetiroService },
@@ -43,6 +47,7 @@ const SERVICES = [
   { provide: ActivacionRecetaData, useClass: ActivacionRecetaService},
   { provide: UsuariosData, useClass: UsuariosService},
   { provide: DigitacionRecetaData, useClass: DigitacionRecetaService},
+  { provide: PaquetesData, useClass: PaquetesService},
 
 ];
 

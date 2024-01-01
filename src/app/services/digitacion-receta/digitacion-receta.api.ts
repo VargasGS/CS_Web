@@ -15,6 +15,13 @@ export class DigitacionRecetaApi {
         return this.http.post(this.apiUrlController, item);    
       }
 
+      listRecetasDigitadas(): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrlController}/listRecetasDigitadas`);
+      }
+
+      listRecetaDigitadaByEbais(ebais: string): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrlController}/listRecetasDigitadasEbais/${ebais}`);
+      }
      
 
     

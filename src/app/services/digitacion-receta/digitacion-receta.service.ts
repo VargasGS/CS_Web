@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { DigitacionReceta, DigitacionRecetaData } from "src/app/models/digitacion-receta/digitacion-receta";
+import { DigitacionReceta, DigitacionRecetaData, RecetaDigitada } from "src/app/models/digitacion-receta/digitacion-receta";
 import { DigitacionRecetaApi } from "./digitacion-receta.api";
 
 
@@ -18,6 +18,14 @@ export class DigitacionRecetaService extends DigitacionRecetaData {
         return this.api.digitarReceta(item);
       }
     
+      listRecetasDigitadas(): Observable<RecetaDigitada[]> {
+        return this.api.listRecetasDigitadas();  
+    }
+
+    listRecetaDigitadaByEbais(ebais: string): Observable<any[]> {
+        return this.api.listRecetaDigitadaByEbais(ebais);
+      }
+     
    
 
     
