@@ -24,6 +24,27 @@ export class PaquetesApi {
       listPaquete(id: number): Observable<any[]> {
         return this.http.get<any[]>(`${this.apiUrlController}/listPaquete/${id}`);
       }
+
+      listPaqueteIdentificador(id: number): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrlController}/listPaqueteIdentificador/${id}`);
+      }
+
+      listPaqueteEbais(ebais: string): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrlController}/listPaqueteEbais/${ebais}`);
+      }
+      revisarPaquete(item: any): Observable<any> {
+        return this.http.post(this.apiUrlController+'/revisarPaquete', item);    
+      }
+
+      entregarReceta(item: any): Observable<any> {
+        return this.http.post(this.apiUrlController+'/entregarReceta', item);    
+      }
+
+      listRecetasRevisadas(): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrlController}/listRecetasRevisadas`);
+      }
+      
+     
      
 
     

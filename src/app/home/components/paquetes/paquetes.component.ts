@@ -23,12 +23,14 @@ export class PaquetesComponent implements OnInit {
 
   public nombre : string = "";
   public ebais : string = "";
+  public identificador : string = "";
   public idPaquete : number = 0;
   searchTerm: string = '';
 
   public selectedReceta!: RecetaDigitada[];
   public objLugarRetiro!: LugarRetiro[] ;
   public objPaqueteRecetas!: PaquetesReceta[] ;
+  public objPaquetes!:Paquetes[] ;
 
   public IdLugarRetiro:FormControl;
 
@@ -38,9 +40,6 @@ export class PaquetesComponent implements OnInit {
   public EbaisForm : FormGroup;
 
   @ViewChild('content', {static:false}) el?: ElementRef;
-
-  data = ['Número receta','Número paquete','Cédula','Nombre','Ebais','Digitador'];
-
 
   constructor(private DigitacionRecetaServicio: DigitacionRecetaData,
     private PaquetesServicio: PaquetesData,
@@ -64,15 +63,6 @@ export class PaquetesComponent implements OnInit {
 
 
 
-
-  prueba(){
-   
-
-
-  //  this.searchTerm=getSelectTema[0].nombreLugar
-
-  }
-
   CargarRecetasDigitadas() {
 
 if(this.IdLugarRetiro.value==-1){
@@ -94,6 +84,8 @@ if(this.IdLugarRetiro.value==-1){
   this.DigitacionRecetaServicio.listRecetaDigitadaByEbais(this.ebais).subscribe({
     next: (data) => {
       this.objRecetasDigitadas = data;
+
+      
     },
     error: (e) => {
       console.error('CargarRecetasDigitadas', e);
@@ -116,6 +108,8 @@ if(this.IdLugarRetiro.value==-1){
 
   GenerarPaquete(){
 
+   
+
     if(this.IdLugarRetiro.value==-1){
       Swal.fire({
         title: '',
@@ -123,7 +117,17 @@ if(this.IdLugarRetiro.value==-1){
         icon: 'error',
         confirmButtonText: 'Aceptar'
       });
-    }else{
+    }else if(this.selectedReceta==undefined){
+      Swal.fire({
+        title: '',
+        text: 'Debe seleccionar las recetas para generar el paquete',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
+    }
+    
+    
+    else{
       var infoPaquete = {
         ebais:this.ebais,
         digitador:this.nombre,
@@ -135,7 +139,7 @@ if(this.IdLugarRetiro.value==-1){
            next: (res) => {
              this.idPaquete=Number(res.idPaquete)
             this.GuardarPaqueteRecetas();
-   
+             this.listarPaqueteIndetificador();
            },
            error: (e) =>{
              console.error(e)
@@ -156,6 +160,18 @@ if(this.IdLugarRetiro.value==-1){
     
   }
 
+  listarPaqueteIndetificador(): void {
+    this.PaquetesServicio.listPaqueteIdentificador(this.idPaquete).subscribe({
+      next: (data) => {
+        this.objPaquetes = data;
+        this.identificador= this.objPaquetes[0].identificador
+      
+      },
+      error: (e) => {
+        console.log('listarPaqueteIndetificador', e);
+      },
+    });
+  }
 
   GuardarPaqueteRecetas(){
  
@@ -235,7 +251,7 @@ if(this.IdLugarRetiro.value==-1){
       pdf.setFontSize(16);
            
       pdf.setTextColor(196, 18, 26); 
-      pdf.text('Paquete ' + this.ebais +'     Cantidad recetas:'+this.objPaqueteRecetas.length, 10, 10);
+      pdf.text('Paquete: ' + this.identificador +'     Cantidad recetas:'+this.objPaqueteRecetas.length, 10, 10);
       /*
       pdf.setFontSize(12);
       

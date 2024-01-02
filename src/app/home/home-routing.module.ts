@@ -9,6 +9,8 @@ import { DigitacionComponent } from './components/digitacion/digitacion.componen
 import { AuthGuard } from '../guards/auth.guard';
 import { EstadoRecetaComponent } from './components/estado-receta/estado-receta.component';
 import { PaquetesComponent } from './components/paquetes/paquetes.component';
+import { ReciboPaquetesComponent } from './components/recibo-paquetes/recibo-paquetes.component';
+import { EntregaRecetaComponent } from './components/entrega-receta/entrega-receta.component';
 
 
 const routes: Routes = [
@@ -46,6 +48,14 @@ const routes: Routes = [
       {
         path: 'paquetes',
         component: PaquetesComponent,
+      },
+      {
+        path: 'recibo-paquetes',
+        component: ReciboPaquetesComponent,
+      },
+      {
+        path: 'entrega-receta',
+        component: EntregaRecetaComponent,
       }
     ]
  

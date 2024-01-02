@@ -1,23 +1,23 @@
 <div class="center">
-    <h1 class="titulo">Digitación</h1>
+    <h1 class="titulo">Entrega a pacientes</h1>
 </div>
 
 <p-table
 #dt
 id="dt"
+[value]="objRecetasPaquete"
 [(selection)]="selectedReceta"
-[value]="objReceta"
 [rows]="10"
 [paginator]="true"
-[globalFilterFields]="['idReceta', 'cedula','nombre', 'fechaAbscripcion','fechaAtencion','lugarRetiro', 'estado','observacion']"
+[globalFilterFields]="[ 'cedula','nombre', 'ebais','fechaRevision','digitador']"
 [rowHover]="true"
-dataKey="idReceta"
+dataKey="cedula"
 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
 [showCurrentPageReport]="true"
 >
 <ng-template pTemplate="caption">
     
-    <h5 class="m-0">Listado de recetas</h5>
+   
     <div class="d-flex justify-content-between">
       
     
@@ -28,8 +28,10 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
           </span>
      
       
-     <!--<button pButton pRipple label="Exportar" icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success mr-2"></button> --> 
+     <button pButton pRipple label="Marcar entregada"  (click)="MarcarEntregada()" class="p-button-success mr-2"></button> 
       </div>
+      <br>
+      <h5 class="m-0">Listado de recetas</h5>
 </ng-template>
 
 <ng-template pTemplate="header">
@@ -38,13 +40,11 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         <th style="width: 4rem">
             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th pSortableColumn="idReceta" style="min-width:15rem">ID <p-sortIcon  field="idReceta"></p-sortIcon></th>
+        
         <th pSortableColumn="cedula" style="min-width:15rem">Cédula <p-sortIcon field="cedula"></p-sortIcon></th>
         <th pSortableColumn="nombre" style="min-width:15rem">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
-        <th pSortableColumn="fechaAbscripcion">Fecha Abscripción<p-sortIcon field="fechaAbscripcion"></p-sortIcon></th>
-        <th pSortableColumn="fechaAtencion">Fecha Atención <p-sortIcon field="fechaAtencion"></p-sortIcon></th>
-        <th pSortableColumn="lugarRetiro">Ebais<p-sortIcon field="lugarRetiro"></p-sortIcon></th>
-        <th pSortableColumn="estado">Estado<p-sortIcon field="estado"></p-sortIcon></th>
+        <th pSortableColumn="ebais" style="min-width:15rem">Ebais <p-sortIcon field="ebais"></p-sortIcon></th>
+        <th pSortableColumn="fechaRevision">Fecha Revisión<p-sortIcon field="fechaRevision"></p-sortIcon></th>
         <th pSortableColumn="observacion">Observación<p-sortIcon field="observacion"></p-sortIcon></th>
     </tr>
 </ng-template>
@@ -53,13 +53,11 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         <td>
             <p-tableCheckbox [value]="receta"></p-tableCheckbox>
         </td>
-        <td>{{ receta.idReceta }}</td>
         <td>{{ receta.cedula }}</td>
-        <td>{{ receta.nombre + ' ' + receta.apellido1 + ' ' + receta.apellido2  }}</td>
-        <td>{{ receta.fechaAbscripcion | date:"medium" }}</td>
-        <td>{{ receta.fechaAtencion | date:"medium"}}</td>
-        <td>{{ receta.lugarRetiro }}</td>
-        <td>{{ receta.estadoReceta }}</td>
+        <td>{{ receta.nombre }}</td>
+        <td>{{ receta.ebais }}</td>
+        <td>{{ receta.fechaRevision | date:"medium" }}</td>
+    
       <td>
         <textarea rows="5" cols="30"  [(ngModel)]="receta.observacion" ></textarea>
       </td>
@@ -70,10 +68,5 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
 </ng-template>
 </p-table>
 <br>
-
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <button type="submit" class="btn btn-success" (click)="marcarDigitada()">Marcar digitada</button>
-    <button  class="btn btn-warning" (click)="marcarRechazada()"   >Marcar rechazada</button>
-  </div>
 
   <br>

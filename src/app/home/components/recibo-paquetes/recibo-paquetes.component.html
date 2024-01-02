@@ -1,5 +1,5 @@
 <div class="center">
-    <h1 class="titulo">ALISTADO DE PAQUETES </h1>
+    <h1 class="titulo">RECIBO DE PAQUETES </h1>
 </div>
 
 
@@ -7,13 +7,13 @@
 <p-table
 #dt
 id="dt"
-[value]="objRecetasDigitadas"
-[(selection)]="selectedReceta"
+[value]="objPaquetes"
+[(selection)]="selectedPaquete"
 [rows]="10"
 [paginator]="true"
-[globalFilterFields]="['cedula','nombre', 'ebais','fechaDigitacion','digitador']"
+[globalFilterFields]="['ebais','fechaRecibido', 'identificador','digitador']"
 [rowHover]="true"
-dataKey="cedula"
+dataKey="identificador"
 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
 [showCurrentPageReport]="true"
 >
@@ -31,19 +31,19 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                 {{obj.nombreLugar }}
               </option>
             </select>
-            <button  (click)="CargarRecetasDigitadas()" class="btn btn-danger" style="background-color: #c4121a; margin-left: 10px;"> <i class="pi pi-search"></i></button>
+            <button (click)="CargarPaquetesEbais()"  class="btn btn-danger" style="background-color: #c4121a; margin-left: 10px;"> <i class="pi pi-search"></i></button>
         </div>
-    
-            
+          
         <div class="col-md-3">
             
-            <button pButton pRipple label="Generar listado" (click)="GenerarPaquete()" class="p-button-success mr-2"></button>
+            <button pButton pRipple label="Marcar revisado" (click)="RevisarPaquete()" class="p-button-success mr-2"></button>
           </div>
+            
         </div>
 
       <br>
 
-      <h5 class="m-0">Listado de recetas digitadas</h5>
+      <h5 class="m-0">Listado de paquetes </h5>
 </ng-template>
 
 <ng-template pTemplate="header">
@@ -52,12 +52,13 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         <th style="width: 4rem">
             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
+ 
        
-        <th pSortableColumn="cedula" style="min-width:15rem">Cédula <p-sortIcon field="cedula"></p-sortIcon></th>
-        <th pSortableColumn="nombre" style="min-width:15rem">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
-        <th pSortableColumn="ebais">Ebais<p-sortIcon field="ebais"></p-sortIcon></th>
-        <th pSortableColumn="fechaDigitacion">Fecha digitación<p-sortIcon field="fechaDigitacion"></p-sortIcon></th>
+        <th pSortableColumn="ebais" style="min-width:15rem">Ebais <p-sortIcon field="ebais"></p-sortIcon></th>
+        <th pSortableColumn="fechaRecibido" style="min-width:15rem">Fecha recibido <p-sortIcon field="fechaRecibido"></p-sortIcon></th>
+        <th pSortableColumn="identificador">NO.Paquete<p-sortIcon field="identificador"></p-sortIcon></th>
         <th pSortableColumn="digitador">Digitador<p-sortIcon field="digitador"></p-sortIcon></th>
+     
       
     </tr>
 </ng-template>
@@ -67,10 +68,9 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             <p-tableCheckbox [value]="receta"></p-tableCheckbox>
         </td>
     
-        <td>{{ receta.cedula }}</td>
-        <td>{{ receta.nombre}}</td>
         <td>{{ receta.ebais }}</td>
-        <td>{{ receta.fechaDigitacion | date:"medium" }}</td>
+        <td>{{ receta.fechaPaquete | date:"medium"}}</td>
+        <td>{{ receta.identificador }}</td>
         <td>{{ receta.digitador }}</td>
      
     </tr>

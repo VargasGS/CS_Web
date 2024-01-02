@@ -40,6 +40,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MenuModule } from 'primeng/menu';
 import { MessageModule } from 'primeng/message';
 import { PaquetesComponent } from './components/paquetes/paquetes.component';
+import { ReciboPaquetesComponent } from './components/recibo-paquetes/recibo-paquetes.component';
+import { EntregaRecetaComponent } from './components/entrega-receta/entrega-receta.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -56,7 +58,9 @@ export function createTranslateLoader(http: HttpClient) {
     HeaderComponent,
     DigitacionComponent,
     EstadoRecetaComponent,
-    PaquetesComponent
+    PaquetesComponent,
+    ReciboPaquetesComponent,
+    EntregaRecetaComponent
    
   ],
   imports: [

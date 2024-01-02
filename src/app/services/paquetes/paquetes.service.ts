@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Paquetes, PaquetesData, PaquetesReceta } from "src/app/models/paquetes/paquetes";
+import { EntregaReceta, Paquetes, PaquetesData, PaquetesReceta } from "src/app/models/paquetes/paquetes";
 import { PaquetesApi } from "./paquetes.api";
 
 
@@ -24,6 +24,24 @@ export class PaquetesService extends PaquetesData {
     listPaquete(id: number): Observable<PaquetesReceta[]> {
       return this.api.listPaquete(id);  
   }
-    
+
+    listPaqueteIdentificador(id: number): Observable<Paquetes[]> {
+      return this.api.listPaqueteIdentificador(id);  
+  }
+  listPaqueteEbais(ebais: string): Observable<Paquetes[]> {
+      return this.api.listPaqueteEbais(ebais);  
+    }
+
+    revisarPaquete(item: any): Observable<Paquetes> {
+      return this.api.revisarPaquete(item);
+    }
+
+    entregarReceta(item: any): Observable<EntregaReceta> {
+      return this.api.entregarReceta(item);
+    }
+
+    listRecetasRevisadas(): Observable<PaquetesReceta[]> {
+      return this.api.listRecetasRevisadas();  
+  }
  
 }
