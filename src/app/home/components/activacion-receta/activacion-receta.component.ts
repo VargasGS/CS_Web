@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 
+
 @Component({
   selector: 'app-activacion-receta',
   templateUrl: './activacion-receta.component.html',
@@ -43,6 +44,8 @@ export class ActivacionRecetaComponent implements OnInit {
   public objAdscrito: Adscritos[] | undefined;
 
   public fechaFormateada: string | undefined;
+
+  public loading= false;
 
   lang: string = "es";
   subscription: Subscription;
@@ -98,6 +101,13 @@ export class ActivacionRecetaComponent implements OnInit {
    
   }
 
+  
+  toggleLoadingAnimation() {
+    this.loading = true;
+    setTimeout(() => this.loading = false, 3000);
+  }
+
+
   translate(lang: string) {
     this.translateService.use(lang);
     this.translateService.get('primeng').subscribe(res => this.config.setTranslation(res));
@@ -140,6 +150,8 @@ export class ActivacionRecetaComponent implements OnInit {
   }
 
   CargarPaciente(): void {
+
+    
     
     this.pacienteServicio.listPacienteByCedula(this.Cedula.value).subscribe({
       next: (data) => {
@@ -150,6 +162,8 @@ export class ActivacionRecetaComponent implements OnInit {
         this.Apellido2.setValue(this.objPaciente[0].apellido2)
         this.Correo.setValue(this.objPaciente[0].correo)
 
+      
+
       },
       error: (e) => {
         console.log('cargarCargarPaciente', e);
@@ -159,13 +173,19 @@ export class ActivacionRecetaComponent implements OnInit {
 
   CargarAdscritos(): void {
 
+    this.loading = true;
+
+
     if(this.Cedula.value !=""){
 
     this.adscritoServicio.listAdscritosByCedula(this.Cedula.value).subscribe({
       next: (data) => {
+
+     
         this.objAdscrito = data;
      
         if(Object.keys(this.objAdscrito).length === 0 ){
+          this.loading = false;
           Swal.fire({
             title: '',
             text: 'No se encontraron coincidencias con la identificación ingresada',
@@ -175,6 +195,7 @@ export class ActivacionRecetaComponent implements OnInit {
           this.limpiarCampos();
   
         }else{
+          this.loading = false;
           this.Nombre.setValue(this.objAdscrito[0].nombre);
           this.Apellido1.setValue(this.objAdscrito[0].apellido1)
           this.Apellido2.setValue(this.objAdscrito[0].apellido2)
@@ -184,10 +205,13 @@ export class ActivacionRecetaComponent implements OnInit {
        
       },
       error: (e) => {
+        this.loading = false;
         console.log('cargarCargarPaciente', e);
       },
     });
   }else{
+
+    this.loading = false;
     Swal.fire({
       title: '',
       text: 'Debe ingresar el número de cédula para realizar la consulta',
@@ -235,7 +259,8 @@ export class ActivacionRecetaComponent implements OnInit {
       fechaAbscripcion: fechaFormateadaR,
       idLugarRetiro: this.IdLugarRetiro.value,
       idEstadoReceta: 1,
-      idAtencion: this.IdCreacionReceta.value
+      idAtencion: this.IdCreacionReceta.value,
+     motivoRechazo:""
     } as ActivacionReceta;
 
 

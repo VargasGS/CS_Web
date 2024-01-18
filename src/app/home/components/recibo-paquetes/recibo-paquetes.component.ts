@@ -70,6 +70,8 @@ RevisarPaquete(){
  
   let infoPaquete:Paquetes[]=[];
 
+  
+
   this.selectedPaquete.forEach(paquete => {
 
   let dato : Paquetes = {
@@ -77,12 +79,15 @@ RevisarPaquete(){
     ebais: paquete.ebais,
     fechaPaquete:paquete.fechaPaquete,
     identificador:paquete.identificador,
-    digitador:paquete.digitador
+    digitador:paquete.digitador,
+    observacion:paquete.observacion
     
 
   } as Paquetes;
 
   infoPaquete.push(dato);
+
+
 
 })
 
@@ -95,6 +100,8 @@ RevisarPaquete(){
             icon: 'success',
             confirmButtonText: 'Aceptar'
           });
+
+          this.CargarPaquetesEbais();
 
         },
         error: (e) =>{
@@ -109,8 +116,8 @@ RevisarPaquete(){
         } 
   
       }
-    )
+    ) 
   }
-    
+   
 
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { LugarRetiro, LugarRetiroData } from 'src/app/models/catalogos/lugar-retiro';
 import { EntregaReceta, PaquetesData, PaquetesReceta } from 'src/app/models/paquetes/paquetes';
 import Swal from 'sweetalert2';
 import { inflate } from 'zlib';
@@ -14,10 +16,38 @@ export class EntregaRecetaComponent implements OnInit {
     
   public selectedReceta!: PaquetesReceta[];
 
-  constructor( private paquetesServicio:PaquetesData) { }
+  public objLugarRetiro!: LugarRetiro[] ;
+  public IdLugarRetiro:FormControl;
+  public EbaisForm : FormGroup;
+  public ebais : string = "";
+
+  constructor( private paquetesServicio:PaquetesData,
+    private formBuilder: FormBuilder,
+    private lugarRetiroServicio: LugarRetiroData) { 
+    this.IdLugarRetiro = new FormControl(-1);
+
+    
+    this.EbaisForm = this.formBuilder.group({
+  
+      IdLugarRetiro:this.IdLugarRetiro
+     })
+
+  }
 
   ngOnInit(): void {
-    this.CargarRecetasRevisadas();
+    //this.CargarRecetasRevisadas();
+    this.CargarLugarRetiro();
+  }
+
+  CargarLugarRetiro(): void {
+    this.lugarRetiroServicio.listLugarRetiro().subscribe({
+      next: (data) => {
+        this.objLugarRetiro = data;
+      },
+      error: (e) => {
+        console.log('cargarLugarRetiro', e);
+      },
+    });
   }
 
   CargarRecetasRevisadas(): void {
@@ -31,6 +61,37 @@ export class EntregaRecetaComponent implements OnInit {
     });
   }
 
+  CargarRecetasRevisadasEbais() {
+
+    if(this.IdLugarRetiro.value==-1){
+    
+      Swal.fire({
+        title: '',
+        text: 'Debe seleccionar un Ebais',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
+    
+    }else{
+      var getSelectEbais = this.objLugarRetiro.filter((obj) => {
+        return obj.idLugarRetiro === Number(this.IdLugarRetiro.value) ;
+      });
+    
+      this.ebais=getSelectEbais[0].nombreLugar
+    
+      this.paquetesServicio.listRecetasRevisadasEbais(this.ebais).subscribe({
+        next: (data) => {
+          this.objRecetasPaquete = data;
+    
+          
+        },
+        error: (e) => {
+          console.error('CargarRecetasRevisadasEbais', e);
+        },
+      });
+    }
+  }
+
 
   MarcarEntregada(): void {
 
@@ -39,20 +100,11 @@ export class EntregaRecetaComponent implements OnInit {
 
     this.selectedReceta.forEach(receta => {
 
-      if(receta.observacion==null){
-        Swal.fire({
-          title: '',
-          text: 'La observacion no puede estar vacía',
-          icon: 'error',
-          confirmButtonText: 'Aceptar'
-        });
-      }else{
         let dato : EntregaReceta = {
           cedula:receta.cedula,
           nombre:receta.nombre,
           ebais:receta.ebais,
           fechaRevision:receta.fechaRevision,
-          observacion:receta.observacion,
           idEstadoReceta:6
       
           } as EntregaReceta;
@@ -73,7 +125,7 @@ export class EntregaRecetaComponent implements OnInit {
               console.log('MarcarEntregada', e);
             },
           });
-      }
+     
 
   
 

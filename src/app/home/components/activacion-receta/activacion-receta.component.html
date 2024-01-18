@@ -1,11 +1,14 @@
-
+<div>
+  
+</div>
 <div class="center">
   <h1 class="titulo">ACTIVACIÓN DE RECETA</h1>
 </div>
 
+
 <br />
 <div style="justify-content: center">
-  <form [formGroup]="activacionRecetaForm" class="row g-3 container container1" >
+  <form [formGroup]="activacionRecetaForm" [nbSpinner]="loading" nbSpinnerSize="giant" nbSpinnerStatus="danger" class="row g-3 container container1" >
     <div class="col-md-6">
       <label for="lbCedula" class="form-label">Número de cédula o asegurado</label>
       <div class="input-group mb-3">
@@ -60,7 +63,7 @@
         <p-calendar [formControl]="FechaAtencion" inputStyleClass="styleInputDate" appendTo="body" dateFormat="dd/mm/yy" ></p-calendar>
       </div>
       <div class="col-md-6">
-        <label for="lbFechaRetiroComp" class="form-label">Fecha de abscripción
+        <label for="lbFechaRetiroComp" class="form-label">Fecha retiro
         </label>  <a [routerLink]="" style="color: red;" (click)="op.toggle($event)"> Instrucciones</a>
         <br>
         <p-calendar [formControl]="FechaRetiro"  inputStyleClass="styleInputDate" appendTo="body" dateFormat="dd/mm/yy" ></p-calendar>
@@ -100,7 +103,7 @@
      
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <button type="submit" class="btn btn-success" [disabled]="!activacionRecetaForm.valid" (click)="GuardarActivacionReceta()" >Guardar</button>
-      <button  class="btn btn-warning"  (click)="verEstadoReceta()" >Ver estado receta</button>
+      <button  class="btn btn-warning" style="color:white" (click)="verEstadoReceta()" >Ver estado receta</button>
     </div>
   </form>
 </div>

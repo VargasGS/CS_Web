@@ -43,6 +43,11 @@ export class PaquetesApi {
       listRecetasRevisadas(): Observable<any[]> {
         return this.http.get<any[]>(`${this.apiUrlController}/listRecetasRevisadas`);
       }
+
+      listRecetasRevisadasEbais(ebais: string): Observable<any> {
+        return this.http.get<any[]>(`${this.apiUrlController}/listRecetasRevisadasByEbais/${ebais}`);
+      }
+
       
      
      

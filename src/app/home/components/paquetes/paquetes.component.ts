@@ -8,7 +8,7 @@ import 'jspdf-autotable';
 import { UsuariosData } from 'src/app/models/autenticacion/usuarios';
 import { LugarRetiro, LugarRetiroData } from 'src/app/models/catalogos/lugar-retiro';
 import { DigitacionRecetaData, RecetaDigitada } from 'src/app/models/digitacion-receta/digitacion-receta';
-import { Paquetes, PaquetesData, PaquetesReceta } from 'src/app/models/paquetes/paquetes';
+import { Paquetes, PaquetesData, PaquetesReceta, PaquetesRecetaDoc } from 'src/app/models/paquetes/paquetes';
 import Swal from 'sweetalert2';
 
 
@@ -131,6 +131,7 @@ if(this.IdLugarRetiro.value==-1){
       var infoPaquete = {
         ebais:this.ebais,
         digitador:this.nombre,
+        recetas:this.selectedReceta.length
    
        } as Paquetes;
    
@@ -241,50 +242,59 @@ if(this.IdLugarRetiro.value==-1){
   
 
   generarPDF(): void {
- 
 
-    const columnas: string[] = ['Número receta', 'Número paquete', 'Cédula', 'Nombre','Id Estado Receta', 'Ebais', 'Digitador'];
-    const pdf = new jsPDF();
-    const headers: Array<keyof PaquetesReceta> = Object.keys(this.objPaqueteRecetas[0]) as Array<keyof PaquetesReceta>;
-    
-      // Agregar texto con estilos
-      pdf.setFontSize(16);
-           
-      pdf.setTextColor(196, 18, 26); 
-      pdf.text('Paquete: ' + this.identificador +'     Cantidad recetas:'+this.objPaqueteRecetas.length, 10, 10);
-      /*
-      pdf.setFontSize(12);
-      
-      pdf.setTextColor(0, 0, 0); // Color negro
-      pdf.text('Cantidad recetas:'+this.objPaqueteRecetas.length, 15, 20);
-      */
-      const styles = {
-        head: {
-          fillColor: [196, 18, 26],  
-          textColor: [255, 255, 255], 
-        },
-        body: {
-          fillColor: [255, 255, 255],  
-          textColor: [0, 0, 0],  
-        },
-      };
+    let paquete:PaquetesRecetaDoc[]=[];
+
+    this.selectedReceta.forEach(receta => {
+     
+      let dato : PaquetesRecetaDoc = {
+        
+        cedula: receta.cedula,
+        nombre: receta.nombre,
+        ebais:receta.ebais
 
      
-     
-    const renamedHeaders = headers.map((header, index) => columnas[index] || header);
-    
-    (pdf as any).autoTable({
-      head: [renamedHeaders],
-      body: this.objPaqueteRecetas.map(row => headers.map(header => row[header])),
-      startY: 20,
-      styles: styles,
-    
-      theme:'plain'
-    });
-    
-    
- 
+      } as PaquetesRecetaDoc;
+  
+      paquete.push(dato);
+  
+    })
 
-  pdf.save('datos.pdf');
+
+const columnas: string[] = ['Cédula', 'Nombre', 'Ebais'];
+const pdf = new jsPDF();
+const headers: Array<keyof PaquetesRecetaDoc> = Object.keys(paquete[0]) as Array<keyof PaquetesRecetaDoc>;
+
+// Agregar imagen como logo
+const logoImg = '/assets/logo-fondo-blanco.png'; // Reemplaza con la ruta de tu imagen
+pdf.addImage(logoImg, 'PNG', 10, 5, 30, 30); // Ajusta las coordenadas y dimensiones según tus necesidades
+
+// Agregar texto con estilos
+pdf.setFontSize(16);
+pdf.setTextColor(196, 18, 26);
+pdf.text('Paquete: ' + this.identificador + ' Cantidad recetas:' + paquete.length, 50, 20);
+
+const styles = {
+  head: {
+    fillColor: [196, 18, 26],
+    textColor: [255, 255, 255],
+  },
+  body: {
+    fillColor: [255, 255, 255],
+    textColor: [0, 0, 0],
+  },
+};
+
+const renamedHeaders = headers.map((header, index) => columnas[index] || header);
+
+(pdf as any).autoTable({
+  head: [renamedHeaders],
+  body: this.objPaqueteRecetas.map(row => headers.map(header => row[header])),
+  startY: 50, // Ajusta la posición de inicio según el tamaño de tu logo
+  styles: styles,
+  theme: 'plain',
+});
+
+pdf.save(this.identificador+'.pdf');
   }
 }

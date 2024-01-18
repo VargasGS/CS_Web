@@ -9,7 +9,7 @@ id="dt"
 [value]="objConsultaReceta"
 [rows]="10"
 [paginator]="true"
-[globalFilterFields]="['cedula','nombre', 'fechaRegistroComprobante','fechaAtencion','lugarRetiro', 'estado']"
+[globalFilterFields]="['cedula','nombre', 'fechaAbscripcion','fechaAtencion','lugarRetiro', 'estado']"
 [rowHover]="true"
 dataKey="cedula"
 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -31,10 +31,11 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
        
         <th pSortableColumn="cedula" style="min-width:15rem">Cédula <p-sortIcon field="cedula"></p-sortIcon></th>
         <th pSortableColumn="nombre" style="min-width:15rem">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
-        <th pSortableColumn="fechaRegistroComprobante">Fecha Retiro <p-sortIcon field="fechaRegistroComprobante"></p-sortIcon></th>
+        <th pSortableColumn="fechaAbscripcion">Fecha Retiro <p-sortIcon field="fechaAbscripcion"></p-sortIcon></th>
         <th pSortableColumn="fechaAtencion">Fecha Atención <p-sortIcon field="fechaAtencion"></p-sortIcon></th>
         <th pSortableColumn="lugarRetiro">Ebais<p-sortIcon field="lugarRetiro"></p-sortIcon></th>
         <th pSortableColumn="estado">Estado<p-sortIcon field="estado"></p-sortIcon></th>
+        <th pSortableColumn="motivoRechazo">Motivo Rechazo<p-sortIcon field="motivoRechazo"></p-sortIcon></th>
     </tr>
 </ng-template>
 <ng-template pTemplate="body" let-receta>
@@ -43,10 +44,11 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
   
         <td>{{ receta.cedula }}</td>
         <td>{{ receta.nombre + ' ' + receta.apellido1 + ' ' + receta.apellido2  }}</td>
-        <td>{{ receta.fechaRegistroComprobante | date:"medium"}}</td>
-        <td>{{ receta.fechaAtencion  | date:"medium"}}</td>
+        <td>{{ receta.fechaAbscripcion | date:"short"}}</td>
+        <td>{{ receta.fechaAtencion  | date:"short"}}</td>
         <td>{{ receta.lugarRetiro }}</td>
         <td>{{ receta.estadoReceta }}</td>
+        <td>{{ receta.motivoRechazo }}</td>
     </tr>
 </ng-template>
 <ng-template pTemplate="summary">

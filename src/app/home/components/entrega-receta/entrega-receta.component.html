@@ -9,7 +9,7 @@ id="dt"
 [(selection)]="selectedReceta"
 [rows]="10"
 [paginator]="true"
-[globalFilterFields]="[ 'cedula','nombre', 'ebais','fechaRevision','digitador']"
+[globalFilterFields]="[ 'cedula','nombre', 'ebais','fechaRevision']"
 [rowHover]="true"
 dataKey="cedula"
 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -19,16 +19,31 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     
    
     <div class="d-flex justify-content-between">
-      
+
+        <div class="col-md-3" style="display: flex; align-items: center;">
+
+            
+            <span class="p-input-icon-left" style="margin-right: 10px;">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" style="width: 200px;" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar..." />
+                
+            </span>
+       
+           
+            <select class="form-select form-control" style="width: 200px;" [formControl]="IdLugarRetiro" >
+              <option value="-1">Seleccione</option>
+              <option id="IdLugarRetiro" *ngFor="let obj of objLugarRetiro" [value]="obj.idLugarRetiro">
+                {{obj.nombreLugar }}
+              </option>
+            </select>
+            <button (click)="CargarRecetasRevisadasEbais()"  class="btn btn-danger" style="background-color: #c4121a; margin-left: 10px;"> <i class="pi pi-search"></i></button>
+                
+             
+        </div>
     
-            <span class="p-input-icon-left">
-              <i class="pi pi-search"></i>
-              <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Search..." />
-              
-          </span>
-     
-      
-     <button pButton pRipple label="Marcar entregada"  (click)="MarcarEntregada()" class="p-button-success mr-2"></button> 
+        <button pButton pRipple label="Marcar entregada"  (click)="MarcarEntregada()" class="p-button-success mr-2"></button> 
+    
+
       </div>
       <br>
       <h5 class="m-0">Listado de recetas</h5>
@@ -45,7 +60,7 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         <th pSortableColumn="nombre" style="min-width:15rem">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
         <th pSortableColumn="ebais" style="min-width:15rem">Ebais <p-sortIcon field="ebais"></p-sortIcon></th>
         <th pSortableColumn="fechaRevision">Fecha Revisión<p-sortIcon field="fechaRevision"></p-sortIcon></th>
-        <th pSortableColumn="observacion">Observación<p-sortIcon field="observacion"></p-sortIcon></th>
+      
     </tr>
 </ng-template>
 <ng-template pTemplate="body" let-receta>
@@ -56,11 +71,8 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         <td>{{ receta.cedula }}</td>
         <td>{{ receta.nombre }}</td>
         <td>{{ receta.ebais }}</td>
-        <td>{{ receta.fechaRevision | date:"medium" }}</td>
+        <td>{{ receta.fechaRevision | date:"short" }}</td>
     
-      <td>
-        <textarea rows="5" cols="30"  [(ngModel)]="receta.observacion" ></textarea>
-      </td>
     </tr>
 </ng-template>
 <ng-template pTemplate="summary">

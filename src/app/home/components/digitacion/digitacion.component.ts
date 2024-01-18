@@ -16,6 +16,7 @@ export class DigitacionComponent implements OnInit {
   public objReceta!: RecetaActiva[];
   selectedRecetas: any[] = []; 
   public nombre : string = "";
+  public marcarR : boolean = true;
 
   
   public selectedReceta!: RecetaActiva[];
@@ -87,7 +88,7 @@ export class DigitacionComponent implements OnInit {
   let infoReceta:DigitacionReceta[]=[];
 
     this.selectedReceta.forEach(receta => {
-
+     
     let dato : DigitacionReceta = {
       id:0,
       cedula: receta.cedula,
@@ -107,6 +108,7 @@ export class DigitacionComponent implements OnInit {
     infoReceta.push(dato);
 
   })
+
  
     this.DigitacionRecetaServicio.digitarReceta(infoReceta).subscribe(
       {
@@ -119,6 +121,8 @@ export class DigitacionComponent implements OnInit {
           });
 
           this.CargarRecetas();
+
+          this.selectedReceta = [];
         },
         error: (e) =>{
           console.error(e)
@@ -128,64 +132,95 @@ export class DigitacionComponent implements OnInit {
             icon: 'error',
             confirmButtonText: 'Aceptar'
           });
-      
+          this.selectedReceta = [];
         } 
   
       }
     )
   }
   marcarRechazada(){
+  
    
   let infoReceta:DigitacionReceta[]=[];
 
-    this.selectedReceta.forEach(receta => {
+  this.selectedReceta.forEach(receta => {
 
-    let dato : DigitacionReceta = {
-      id:0,
-      cedula: receta.cedula,
-      nombre: receta.nombre,
-      apellido1: receta.apellido1,
-      apellido2: receta.apellido2,
-      fechaAtencion:receta.fechaAtencion,
-      fechaAbscripcion: receta.fechaAbscripcion,
-      idLugarRetiro: receta.idLugarRetiro,
-      idEstadoReceta: 3,
-      idAtencion: receta.idAtencion,
-      observacion:receta.observacion,
-      digitador: this.nombre,
-      fechaDigitacion:new Date()
-    } as DigitacionReceta;
-
-    infoReceta.push(dato);
-
+    if(receta.observacion==null){
+      this.marcarR=false;
+    }
   })
 
+  if(this.marcarR==false){
+    Swal.fire({
+      title: '',
+      text: 'Debe ingresar el motivo de rechazo de la receta',
+      icon: 'error',
+      confirmButtonText: 'Aceptar'
+    });
 
-    this.DigitacionRecetaServicio.digitarReceta(infoReceta).subscribe(
-      {
-        next: (res) => {
-          Swal.fire({
-            title: '',
-            text: 'Proceso realizado con éxito',
-            icon: 'success',
-            confirmButtonText: 'Aceptar'
-          });
+    this.marcarR=true;
 
-          this.CargarRecetas();
-        },
-        error: (e) =>{
-          console.error(e)
-          Swal.fire({
-            title: '',
-            text: 'Hubo un error al rechazar la o las recetas',
-            icon: 'error',
-            confirmButtonText: 'Aceptar'
-          });
-      
-        } 
+  }else{
+   
+    this.selectedReceta.forEach(receta => {
+
+      let dato : DigitacionReceta = {
+        id:0,
+        cedula: receta.cedula,
+        nombre: receta.nombre,
+        apellido1: receta.apellido1,
+        apellido2: receta.apellido2,
+        fechaAtencion:receta.fechaAtencion,
+        fechaAbscripcion: receta.fechaAbscripcion,
+        idLugarRetiro: receta.idLugarRetiro,
+        idEstadoReceta: 3,
+        idAtencion: receta.idAtencion,
+        observacion:receta.observacion,
+        digitador: this.nombre,
+        fechaDigitacion:new Date()
+      } as DigitacionReceta;
   
-      }
-    )
+      infoReceta.push(dato);
+  
+    })
+
+
+      this.DigitacionRecetaServicio.digitarReceta(infoReceta).subscribe(
+        {
+          next: (res) => {
+            Swal.fire({
+              title: '',
+              text: 'Proceso realizado con éxito',
+              icon: 'success',
+              confirmButtonText: 'Aceptar'
+            });
+  
+            this.CargarRecetas();
+
+            this.marcarR=true;
+            infoReceta = [];
+            this.selectedReceta = [];
+          },
+          error: (e) =>{
+            console.error(e)
+            Swal.fire({
+              title: '',
+              text: 'Hubo un error al rechazar la o las recetas',
+              icon: 'error',
+              confirmButtonText: 'Aceptar'
+            });
+
+            this.marcarR=true;
+            infoReceta = [];
+            this.selectedReceta = [];
+        
+          } 
+    
+        }
+      )
+  }
+
+  
   }
 
 }

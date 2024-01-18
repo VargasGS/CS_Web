@@ -43,5 +43,9 @@ export class PaquetesService extends PaquetesData {
     listRecetasRevisadas(): Observable<PaquetesReceta[]> {
       return this.api.listRecetasRevisadas();  
   }
+
+  listRecetasRevisadasEbais(ebais: string): Observable<PaquetesReceta[]> {
+    return this.api.listRecetasRevisadasEbais(ebais);  
+  }
  
 }

@@ -7,6 +7,8 @@ export interface Paquetes {
     identificador:string;  
     estadoPaquete:string;  
     fechaPaquete:Date;
+    recetas:number;
+    observacion:string;
 }
 
 export interface PaquetesReceta {
@@ -20,6 +22,14 @@ export interface PaquetesReceta {
     observacion:string;
 }
 
+export interface PaquetesRecetaDoc {
+  
+    nombre:string;
+    cedula:string;
+    ebais:string;   
+
+}
+
 export interface EntregaReceta {
     id:number;  
     idEstadoReceta:number;  
@@ -27,7 +37,7 @@ export interface EntregaReceta {
     cedula:string;
     ebais:string;   
     fechaRevision:Date;   
-    observacion:string;
+   // observacion:string;
 }
 
 
@@ -41,4 +51,5 @@ export abstract class PaquetesData {
     abstract revisarPaquete(item: Paquetes[]): Observable<Paquetes>;
     abstract entregarReceta(item: EntregaReceta[]): Observable<EntregaReceta>;
     abstract listRecetasRevisadas(): Observable<PaquetesReceta[]>;
+    abstract listRecetasRevisadasEbais(id: string): Observable<PaquetesReceta[]>;
 }

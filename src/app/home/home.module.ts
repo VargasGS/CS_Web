@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { NbThemeModule, NbLayoutModule, NbActionsModule, NbIconModule, NbUserModule, NbSelectModule, NbMenuModule, NbContextMenuModule, NbCardModule, NbListModule, NbRadioModule, NbCheckboxModule, NbButtonModule, NbBadgeModule, NbThemeService } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbActionsModule, NbIconModule, NbUserModule, NbSelectModule, NbMenuModule, NbContextMenuModule, NbCardModule, NbListModule, NbRadioModule, NbCheckboxModule, NbButtonModule, NbBadgeModule, NbThemeService, NbSpinnerModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 import { ButtonModule } from 'primeng/button';
@@ -42,6 +42,10 @@ import { MessageModule } from 'primeng/message';
 import { PaquetesComponent } from './components/paquetes/paquetes.component';
 import { ReciboPaquetesComponent } from './components/recibo-paquetes/recibo-paquetes.component';
 import { EntregaRecetaComponent } from './components/entrega-receta/entrega-receta.component';
+
+import { ProgressSpinnerModule }  
+    from 'primeng/progressspinner'; 
+
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -104,6 +108,8 @@ export function createTranslateLoader(http: HttpClient) {
     NbEvaIconsModule,
     NbLayoutModule,
     MenuModule,
+    NbSpinnerModule,
+    ProgressSpinnerModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,

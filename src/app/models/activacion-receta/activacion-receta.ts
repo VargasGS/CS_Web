@@ -12,6 +12,7 @@ export interface ActivacionReceta {
     idLugarRetiro:number;  
     idEstadoReceta:number;  
     idAtencion:number;  
+    motivoRechazo:string;
 }
 
 export interface RecetaActiva{
@@ -46,6 +47,7 @@ export interface EstadoReceta{
     LugarRetiro:string;  
     EstadoReceta:string;  
     Atencion:string;   
+    MotivoRechazo:string;
 }
 
 export abstract class ActivacionRecetaData {

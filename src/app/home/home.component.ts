@@ -24,9 +24,13 @@ import { NbMenuInternalService } from '@nebular/theme/components/menu/menu.servi
 export class HomeComponent implements OnInit {
 
 
+  currentYear: number;
+
   constructor(private usuariosServicio: UsuariosData,
     private sidebarService: NbSidebarService,
     private messageService: MessageService) { 
+
+      this.currentYear = new Date().getFullYear();
     
   }
 
