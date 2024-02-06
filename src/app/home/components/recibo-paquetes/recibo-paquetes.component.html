@@ -58,7 +58,7 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         <th pSortableColumn="fechaRecibido" style="min-width:15rem">Fecha recibido <p-sortIcon field="fechaRecibido"></p-sortIcon></th>
         <th pSortableColumn="identificador">NO.Paquete<p-sortIcon field="identificador"></p-sortIcon></th>
         <th pSortableColumn="recetas">Número recetas<p-sortIcon field="recetas"></p-sortIcon></th>
-        <th pSortableColumn="digitador">Digitador<p-sortIcon field="digitador"></p-sortIcon></th>
+        <th pSortableColumn="digitador">Empacador<p-sortIcon field="digitador"></p-sortIcon></th>
         <th pSortableColumn="observacion">Observación<p-sortIcon field="observacion"></p-sortIcon></th>
      
       
@@ -71,7 +71,7 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         </td>
     
         <td>{{ receta.ebais }}</td>
-        <td>{{ receta.fechaPaquete | date:"short"}}</td>
+        <td>{{ receta.fechaPaquete | date:'d/M/yyyy, h:mm a'}}</td>
         <td>{{ receta.identificador }}</td>
         <td>{{ receta.recetas }}</td>
         <td>{{ receta.digitador }}</td>

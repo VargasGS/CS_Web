@@ -100,12 +100,25 @@ export class EntregaRecetaComponent implements OnInit {
 
     this.selectedReceta.forEach(receta => {
 
+      if(receta.observacion==null || receta.observacion==""){
+        Swal.fire({
+          title: '',
+          text: 'Debe ingresar quien recibió los medicamentos',
+          icon: 'info',
+          confirmButtonText: 'Aceptar'
+        });
+
+        this.selectedReceta = [];
+
+      }else{
+
         let dato : EntregaReceta = {
           cedula:receta.cedula,
           nombre:receta.nombre,
           ebais:receta.ebais,
           fechaRevision:receta.fechaRevision,
-          idEstadoReceta:6
+          idEstadoReceta:6,
+          observacion:receta.observacion
       
           } as EntregaReceta;
       
@@ -116,19 +129,20 @@ export class EntregaRecetaComponent implements OnInit {
                 title: '',
                 text: 'Proceso realizado con éxito',
                 icon: 'success',
-                confirmButtonText: 'Aceptar'
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#8CD4F5',
               });
-      
-              this.CargarRecetasRevisadas();
+              this.selectedReceta = [];
+              //this.CargarRecetasRevisadas();
             },
             error: (e) => {
               console.log('MarcarEntregada', e);
             },
           });
-     
 
-  
+      }
 
+      
   })
 
   

@@ -22,7 +22,7 @@
        
         <div class="login-form">
           <form [formGroup]="loginForm" >
-            <input type="text" [formControl]="Usuario" class="form-control" id="inputUsuario" placeholder="Usuario"/>
+            <input type="text"  [formControl]="Usuario" class="form-control" id="inputUsuario" placeholder="Usuario"/>
             <small style="color: red;" *ngIf="(Usuario.dirty || Usuario.touched) && Usuario.errors">
               <ng-container [ngSwitch]="Usuario.value">
               <ng-container *ngSwitchCase="''">El usuario es requerido</ng-container>

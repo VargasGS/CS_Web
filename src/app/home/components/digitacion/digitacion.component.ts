@@ -57,28 +57,6 @@ export class DigitacionComponent implements OnInit {
     XLSX.utils.book_append_sheet(workBook, workSheet, 'data'); 
     XLSX.writeFile(workBook, 'temp.xlsx'); 
 
-/**
-
-    const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-
-    const EXCEL_EXTENSION ='.xlsx'
-
-    const ws: XLSX.WorkSheet =  XLSX.utils.sheet_to_json(this.objReceta);
-    const wb: XLSX.WorkBook = {Sheets:{'data':ws},SheetNames:['data']};
-    const excelBuffer: any = XLSX.write(wb,{bookType:'xlsx', type:'array'})
-
-    const blobData = new Blob([excelBuffer],{type:EXCEL_TYPE});
-    this.filerSaver.save(blobData,"RecetasActivas")
-    
-
- * 
- *     const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb,ws,'Sheet1');
-
-    XLSX.writeFile(wb,this.fileName)
- * 
- * 
- */
 
   }
 

@@ -37,7 +37,7 @@ export interface EntregaReceta {
     cedula:string;
     ebais:string;   
     fechaRevision:Date;   
-   // observacion:string;
+    observacion:string;
 }
 
 

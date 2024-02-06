@@ -41,7 +41,7 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         <th pSortableColumn="idReceta" style="min-width:15rem">ID <p-sortIcon  field="idReceta"></p-sortIcon></th>
         <th pSortableColumn="cedula" style="min-width:15rem">Cédula <p-sortIcon field="cedula"></p-sortIcon></th>
         <th pSortableColumn="nombre" style="min-width:15rem">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
-        <th pSortableColumn="fechaAbscripcion">Fecha Abscripción<p-sortIcon field="fechaAbscripcion"></p-sortIcon></th>
+        <th pSortableColumn="fechaAbscripcion">Fecha Registro<p-sortIcon field="fechaAbscripcion"></p-sortIcon></th>
         <th pSortableColumn="fechaAtencion">Fecha Atención <p-sortIcon field="fechaAtencion"></p-sortIcon></th>
         <th pSortableColumn="lugarRetiro">Ebais<p-sortIcon field="lugarRetiro"></p-sortIcon></th>
         <th pSortableColumn="estado">Estado<p-sortIcon field="estado"></p-sortIcon></th>
@@ -56,8 +56,8 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         <td>{{ receta.idReceta }}</td>
         <td>{{ receta.cedula }}</td>
         <td>{{ receta.nombre + ' ' + receta.apellido1 + ' ' + receta.apellido2  }}</td>
-        <td>{{ receta.fechaAbscripcion | date:"short" }}</td>
-        <td>{{ receta.fechaAtencion | date:"short"}}</td>
+        <td>{{ receta.fechaAbscripcion | date:'d/M/yyyy, h:mm a'}}</td>
+        <td>{{ receta.fechaAtencion | date:'d/M/yyyy, h:mm a'}}</td>
         <td>{{ receta.lugarRetiro }}</td>
         <td>{{ receta.estadoReceta }}</td>
       <td>

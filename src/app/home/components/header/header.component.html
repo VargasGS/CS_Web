@@ -7,9 +7,9 @@
 
     <div #topbarmenu class="layout-topbar-menu" >
       
-        <nb-user *ngIf="mostrar"  style="color: white;" name={{nombre}} ></nb-user>
+        <nb-user   style="color: white;" name={{nombre}} ></nb-user>
            
-        <button *ngIf="mostrar" class="p-link layout-topbar-button" (click)="menu.toggle($event)">
+        <button  class="p-link layout-topbar-button" (click)="menu.toggle($event)">
             <i class="pi pi-user"></i>
 
             

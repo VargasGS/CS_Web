@@ -60,6 +60,7 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         <th pSortableColumn="nombre" style="min-width:15rem">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
         <th pSortableColumn="ebais" style="min-width:15rem">Ebais <p-sortIcon field="ebais"></p-sortIcon></th>
         <th pSortableColumn="fechaRevision">Fecha Revisión<p-sortIcon field="fechaRevision"></p-sortIcon></th>
+        <th pSortableColumn="observacion">Observación<p-sortIcon field="observacion"></p-sortIcon></th>
       
     </tr>
 </ng-template>
@@ -71,7 +72,10 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         <td>{{ receta.cedula }}</td>
         <td>{{ receta.nombre }}</td>
         <td>{{ receta.ebais }}</td>
-        <td>{{ receta.fechaRevision | date:"short" }}</td>
+        <td>{{ receta.fechaRevision | date:'d/M/yyyy, h:mm a' }}</td>
+        <td>
+            <textarea rows="5" cols="30"  [(ngModel)]="receta.observacion" ></textarea>
+        </td>
     
     </tr>
 </ng-template>

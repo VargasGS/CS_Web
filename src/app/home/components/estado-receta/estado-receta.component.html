@@ -9,7 +9,7 @@ id="dt"
 [value]="objConsultaReceta"
 [rows]="10"
 [paginator]="true"
-[globalFilterFields]="['cedula','nombre', 'fechaAbscripcion','fechaAtencion','lugarRetiro', 'estado']"
+[globalFilterFields]="['cedula','nombre', 'fechaAbscripcion','fechaAtencion','lugarRetiro', 'estado','motivoRechazo','entrega','fechaEntrega']"
 [rowHover]="true"
 dataKey="cedula"
 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -31,11 +31,13 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
        
         <th pSortableColumn="cedula" style="min-width:15rem">Cédula <p-sortIcon field="cedula"></p-sortIcon></th>
         <th pSortableColumn="nombre" style="min-width:15rem">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
-        <th pSortableColumn="fechaAbscripcion">Fecha Retiro <p-sortIcon field="fechaAbscripcion"></p-sortIcon></th>
+        <th pSortableColumn="fechaAbscripcion">Fecha Registro <p-sortIcon field="fechaAbscripcion"></p-sortIcon></th>
         <th pSortableColumn="fechaAtencion">Fecha Atención <p-sortIcon field="fechaAtencion"></p-sortIcon></th>
         <th pSortableColumn="lugarRetiro">Ebais<p-sortIcon field="lugarRetiro"></p-sortIcon></th>
         <th pSortableColumn="estado">Estado<p-sortIcon field="estado"></p-sortIcon></th>
         <th pSortableColumn="motivoRechazo">Motivo Rechazo<p-sortIcon field="motivoRechazo"></p-sortIcon></th>
+        <th pSortableColumn="entrega">Entregado<p-sortIcon field="entrega"></p-sortIcon></th>
+        <th pSortableColumn="fechaEntrega">Fecha Entrega<p-sortIcon field="fechaEntrega"></p-sortIcon></th>
     </tr>
 </ng-template>
 <ng-template pTemplate="body" let-receta>
@@ -44,11 +46,13 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
   
         <td>{{ receta.cedula }}</td>
         <td>{{ receta.nombre + ' ' + receta.apellido1 + ' ' + receta.apellido2  }}</td>
-        <td>{{ receta.fechaAbscripcion | date:"short"}}</td>
-        <td>{{ receta.fechaAtencion  | date:"short"}}</td>
+        <td>{{ receta.fechaAbscripcion | date:'d/M/yyyy, h:mm a'}}</td>
+        <td>{{ receta.fechaAtencion  | date:'d/M/yyyy, h:mm a'}}</td>
         <td>{{ receta.lugarRetiro }}</td>
         <td>{{ receta.estadoReceta }}</td>
         <td>{{ receta.motivoRechazo }}</td>
+        <td>{{ receta.entrega }}</td>
+        <td>{{ receta.fechaEntrega  | date:'d/M/yyyy, h:mm a' }}</td>
     </tr>
 </ng-template>
 <ng-template pTemplate="summary">

@@ -104,7 +104,7 @@ export class RegistroComponent implements OnInit {
     this.Apellido2.setValue("");
     this.Usuario.setValue("");
     this.Correo.setValue("");
-    this.Rol.setValue("");
+    this.Rol.setValue(-1);
     this.Contrasena.setValue("");
     this.idU=0;
   }
@@ -112,6 +112,7 @@ export class RegistroComponent implements OnInit {
   modalRegistroUsuario() {
    // this.product = {};
    // this.submitted = false;
+   this.limpiarCampos()
 
    this.labelModal="Registrar nuevo usuario";
    this.labelBoton="Registrar";

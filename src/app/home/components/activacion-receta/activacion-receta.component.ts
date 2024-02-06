@@ -73,7 +73,7 @@ export class ActivacionRecetaComponent implements OnInit {
       this.FechaAtencion = new FormControl('', Validators.required);
       this.FechaRetiro = new FormControl('', Validators.required);
       this.IdLugarRetiro = new FormControl(-1, [Validators.required]);
-      this.IdCreacionReceta = new FormControl(-1, [Validators.required]);
+      this.IdCreacionReceta = new FormControl(2, [Validators.required]);
     
    this.activacionRecetaForm = this.formBuilder.group({
     Cedula:this.Cedula,
@@ -231,7 +231,7 @@ export class ActivacionRecetaComponent implements OnInit {
     this.FechaAtencion.setValue('');
     this.FechaRetiro.setValue('');
     this.IdLugarRetiro= new FormControl(-1)
-    this.IdCreacionReceta =new FormControl(-1)
+    this.IdCreacionReceta =new FormControl(2)
   }}
 
 
@@ -250,6 +250,7 @@ export class ActivacionRecetaComponent implements OnInit {
   
 
     var infoActivacion = {
+      id: 0,
       cedula: this.Cedula.value,
       nombre: (this.Nombre.value).toUpperCase(),
       apellido1: (this.Apellido1.value).toUpperCase(),
@@ -260,8 +261,10 @@ export class ActivacionRecetaComponent implements OnInit {
       idLugarRetiro: this.IdLugarRetiro.value,
       idEstadoReceta: 1,
       idAtencion: this.IdCreacionReceta.value,
-     motivoRechazo:""
-    } as ActivacionReceta;
+      motivoRechazo: "",
+      Entrega: "",
+      FechaEntrega: null
+    } as unknown as ActivacionReceta;
 
 
      if(infoActivacion.idAtencion!=-1 && infoActivacion.idLugarRetiro!=-1 && infoActivacion.cedula!=""
@@ -286,7 +289,7 @@ export class ActivacionRecetaComponent implements OnInit {
             console.error(e)
             Swal.fire({
               title: '',
-              text: 'Hubo un error al activar la receta',
+              text: 'Ya existe la activación',
               icon: 'error',
               confirmButtonText: 'Aceptar'
             });

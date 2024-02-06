@@ -42,6 +42,7 @@ import { MessageModule } from 'primeng/message';
 import { PaquetesComponent } from './components/paquetes/paquetes.component';
 import { ReciboPaquetesComponent } from './components/recibo-paquetes/recibo-paquetes.component';
 import { EntregaRecetaComponent } from './components/entrega-receta/entrega-receta.component';
+import { PasswordModule } from 'primeng/password';
 
 import { ProgressSpinnerModule }  
     from 'primeng/progressspinner'; 
@@ -76,6 +77,7 @@ export function createTranslateLoader(http: HttpClient) {
     homeRoutingModule,
     ButtonModule,
     CardModule,
+    PasswordModule,
     MenubarModule,
     NbActionsModule, 
     NbIconModule,

@@ -70,7 +70,7 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         <td>{{ receta.cedula }}</td>
         <td>{{ receta.nombre}}</td>
         <td>{{ receta.ebais }}</td>
-        <td>{{ receta.fechaDigitacion | date:"short" }}</td>
+        <td>{{ receta.fechaDigitacion | date:'d/M/yyyy, h:mm a' }}</td>
         <td>{{ receta.digitador }}</td>
      
     </tr>
