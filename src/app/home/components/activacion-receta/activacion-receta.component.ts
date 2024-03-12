@@ -15,6 +15,7 @@ import { DatePipe } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { UsuariosData } from 'src/app/models/autenticacion/usuarios';
 
 
 
@@ -45,6 +46,11 @@ export class ActivacionRecetaComponent implements OnInit {
 
   public fechaFormateada: string | undefined;
 
+
+  public nombre : string= "";
+  public rol : string= "";
+  public mostrar :boolean = false;
+
   public loading= false;
 
   lang: string = "es";
@@ -62,7 +68,8 @@ export class ActivacionRecetaComponent implements OnInit {
     private activacionRecetaServicio: ActivacionRecetaData,
     private config: PrimeNGConfig,
     private translateService: TranslateService,
-    private router:Router) {
+    private router:Router,
+    private usuariosServicio: UsuariosData) {
 
       translateService.setDefaultLang('es');
       this.Cedula = new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]);
@@ -98,9 +105,26 @@ export class ActivacionRecetaComponent implements OnInit {
     this.translateService.setDefaultLang('es');
     this.CargarLugarRetiro();
     this.CargarLugarAtencion();
+    this.comprobarLogin()
    
   }
 
+  comprobarLogin(){
+    this.usuariosServicio.getFullNameFromStore().subscribe(
+      {
+        next: (res: any) => {
+         this.nombre = this.usuariosServicio.getNombreFromToken();
+      
+         this.rol= this.usuariosServicio.getRoleFromToken();
+       
+     
+        if(this.rol==="Administrador" || this.rol=="funcionario" ){
+        
+          this.mostrar=true;
+        }
+      }
+    })
+  }
   
   toggleLoadingAnimation() {
     this.loading = true;
@@ -314,5 +338,10 @@ export class ActivacionRecetaComponent implements OnInit {
   verEstadoReceta(){
 
     this.router.navigate(['pages/estadoReceta']);
+  }
+
+  verMenuPrincipal(){
+
+    this.router.navigate(['pages/dashboard']);
   }
   }

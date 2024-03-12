@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LugarRetiro, LugarRetiroData } from 'src/app/models/catalogos/lugar-retiro';
 import { EntregaReceta, PaquetesData, PaquetesReceta } from 'src/app/models/paquetes/paquetes';
 import Swal from 'sweetalert2';
@@ -23,7 +24,8 @@ export class EntregaRecetaComponent implements OnInit {
 
   constructor( private paquetesServicio:PaquetesData,
     private formBuilder: FormBuilder,
-    private lugarRetiroServicio: LugarRetiroData) { 
+    private lugarRetiroServicio: LugarRetiroData,
+    private router:Router) { 
     this.IdLugarRetiro = new FormControl(-1);
 
     
@@ -59,6 +61,11 @@ export class EntregaRecetaComponent implements OnInit {
         console.log('cargarLugarRetiro', e);
       },
     });
+  }
+
+  verMenuPrincipal(){
+
+    this.router.navigate(['pages/dashboard']);
   }
 
   CargarRecetasRevisadasEbais() {

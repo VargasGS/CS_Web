@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FileSaverService } from 'ngx-filesaver';
 import { ActivacionRecetaData, RecetaActiva } from 'src/app/models/activacion-receta/activacion-receta';
 import { Usuarios, UsuariosData } from 'src/app/models/autenticacion/usuarios';
@@ -25,7 +26,8 @@ export class DigitacionComponent implements OnInit {
   constructor(private ActivacionRecetaServicio: ActivacionRecetaData,
     private DigitacionRecetaServicio: DigitacionRecetaData,
     private filerSaver:FileSaverService,
-    private usuariosServicio: UsuariosData) { }
+    private usuariosServicio: UsuariosData,
+    private router:Router) { }
 
   ngOnInit(): void {
 
@@ -58,6 +60,11 @@ export class DigitacionComponent implements OnInit {
     XLSX.writeFile(workBook, 'temp.xlsx'); 
 
 
+  }
+
+  verMenuPrincipal(){
+
+    this.router.navigate(['pages/dashboard']);
   }
 
 

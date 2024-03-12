@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LugarRetiro, LugarRetiroData } from 'src/app/models/catalogos/lugar-retiro';
 import { Paquetes, PaquetesData } from 'src/app/models/paquetes/paquetes';
 import Swal from 'sweetalert2';
@@ -20,7 +21,8 @@ export class ReciboPaquetesComponent implements OnInit {
   constructor( 
      private lugarRetiroServicio: LugarRetiroData,
      private paquetesServicio:PaquetesData,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private router:Router) {
       this.IdLugarRetiro = new FormControl(-1);
 
      }
@@ -39,7 +41,10 @@ export class ReciboPaquetesComponent implements OnInit {
       },
     });
   }
+  verMenuPrincipal(){
 
+    this.router.navigate(['pages/dashboard']);
+  }
   CargarPaquetesEbais(): void {
 
     if(this.IdLugarRetiro.value==-1){

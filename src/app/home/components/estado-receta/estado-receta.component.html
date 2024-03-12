@@ -9,14 +9,15 @@ id="dt"
 [value]="objConsultaReceta"
 [rows]="10"
 [paginator]="true"
-[globalFilterFields]="['cedula','nombre', 'fechaAbscripcion','fechaAtencion','lugarRetiro', 'estado','motivoRechazo','entrega','fechaEntrega']"
+[globalFilterFields]="['cedula','nombre','fechaAtencion','lugarRetiro', 'estado','motivoRechazo','entrega','fechaEntrega']"
 [rowHover]="true"
 dataKey="cedula"
 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
 [showCurrentPageReport]="true"
 >
 <ng-template pTemplate="caption">
-    <div class="flex align-items-center justify-content-between">
+    <div class="d-flex justify-content-between">
+    <div class="col-md-3" style="display: flex; align-items: center;">
         <span class="p-input-icon-left" style="margin-right: 10px;">
            
             <input type="text" [(ngModel)]="cedula" class="form-control" id="inputUsuario" />
@@ -25,15 +26,22 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
      
       
     </div>
+
+    
+    <div class="col-md-3">
+       
+        <button *ngIf="mostrar" pButton pRipple label="Atras" (click)="verMenuPrincipal()" style="margin-left: 10px;" class="p-button-secondary mr-2"></button>
+    </div>
+
+</div>
 </ng-template>
 <ng-template pTemplate="header">
     <tr>
        
         <th pSortableColumn="cedula" style="min-width:15rem">Cédula <p-sortIcon field="cedula"></p-sortIcon></th>
         <th pSortableColumn="nombre" style="min-width:15rem">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
-        <th pSortableColumn="fechaAbscripcion">Fecha Registro <p-sortIcon field="fechaAbscripcion"></p-sortIcon></th>
-        <th pSortableColumn="fechaAtencion">Fecha Atención <p-sortIcon field="fechaAtencion"></p-sortIcon></th>
         <th pSortableColumn="lugarRetiro">Ebais<p-sortIcon field="lugarRetiro"></p-sortIcon></th>
+        <th pSortableColumn="fechaAtencion">Fecha Registro<p-sortIcon field="fechaAtencion"></p-sortIcon></th>
         <th pSortableColumn="estado">Estado<p-sortIcon field="estado"></p-sortIcon></th>
         <th pSortableColumn="motivoRechazo">Motivo Rechazo<p-sortIcon field="motivoRechazo"></p-sortIcon></th>
         <th pSortableColumn="entrega">Entregado<p-sortIcon field="entrega"></p-sortIcon></th>
@@ -46,9 +54,8 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
   
         <td>{{ receta.cedula }}</td>
         <td>{{ receta.nombre + ' ' + receta.apellido1 + ' ' + receta.apellido2  }}</td>
-        <td>{{ receta.fechaAbscripcion | date:'d/M/yyyy, h:mm a'}}</td>
-        <td>{{ receta.fechaAtencion  | date:'d/M/yyyy, h:mm a'}}</td>
         <td>{{ receta.lugarRetiro }}</td>
+        <td>{{ receta.fechaAtencion  | date:'d/M/yyyy, h:mm a' }}</td>
         <td>{{ receta.estadoReceta }}</td>
         <td>{{ receta.motivoRechazo }}</td>
         <td>{{ receta.entrega }}</td>

@@ -1,6 +1,7 @@
 import { ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
@@ -45,7 +46,8 @@ export class PaquetesComponent implements OnInit {
     private PaquetesServicio: PaquetesData,
     private usuariosServicio: UsuariosData,
     private lugarRetiroServicio: LugarRetiroData,
-    private formBuilder: FormBuilder,) { 
+    private formBuilder: FormBuilder,
+    private router:Router) { 
 
       this.IdLugarRetiro = new FormControl(-1);
 
@@ -172,6 +174,11 @@ if(this.IdLugarRetiro.value==-1){
         console.log('listarPaqueteIndetificador', e);
       },
     });
+  }
+
+  verMenuPrincipal(){
+
+    this.router.navigate(['pages/dashboard']);
   }
 
   GuardarPaqueteRecetas(){
