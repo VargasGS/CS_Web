@@ -75,53 +75,69 @@ RevisarPaquete(){
  
   let infoPaquete:Paquetes[]=[];
 
-  
+  console.log(this.selectedPaquete)
 
-  this.selectedPaquete.forEach(paquete => {
+  if(this.selectedPaquete==undefined){
 
-  let dato : Paquetes = {
-  
-    ebais: paquete.ebais,
-    fechaPaquete:paquete.fechaPaquete,
-    identificador:paquete.identificador,
-    digitador:paquete.digitador,
-    observacion:paquete.observacion
-    
+    Swal.fire({
+      title: '',
+      text: 'Debe marcar al menos un paquete',
+      icon: 'error',
+      confirmButtonText: 'Aceptar'
+    });
 
-  } as Paquetes;
+  }else{
+    this.selectedPaquete.forEach(paquete => {
 
-  infoPaquete.push(dato);
-
-
-
-})
-
-    this.paquetesServicio.revisarPaquete(infoPaquete).subscribe(
-      {
-        next: (res) => {
-          Swal.fire({
-            title: '',
-            text: 'El paquete se marcó como revisado',
-            icon: 'success',
-            confirmButtonText: 'Aceptar'
-          });
-
-          this.CargarPaquetesEbais();
-
-        },
-        error: (e) =>{
-          console.error(e)
-          Swal.fire({
-            title: '',
-            text: 'Hubo un error al revisar el/los paquete(s)',
-            icon: 'error',
-            confirmButtonText: 'Aceptar'
-          });
+      let dato : Paquetes = {
       
-        } 
+        ebais: paquete.ebais,
+        fechaPaquete:paquete.fechaPaquete,
+        identificador:paquete.identificador,
+        digitador:paquete.digitador,
+        observacion:paquete.observacion
+        
+    
+      } as Paquetes;
+    
+      infoPaquete.push(dato);
+    
+    
+    
+    })
+    
+        this.paquetesServicio.revisarPaquete(infoPaquete).subscribe(
+          {
+            next: (res) => {
+              Swal.fire({
+                title: '',
+                text: 'El paquete se marcó como revisado',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+              });
+    
+              this.CargarPaquetesEbais();
+    
+            },
+            error: (e) =>{
+              console.error(e)
+              Swal.fire({
+                title: '',
+                text: 'Hubo un error al revisar el/los paquete(s)',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+              });
+          
+            } 
+      
+          }
+        ) 
+
+  }
+
   
-      }
-    ) 
+
+
   }
    
 

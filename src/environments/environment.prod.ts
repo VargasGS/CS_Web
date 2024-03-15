@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrlCatalogos: 'https://www.cs.somee.com',
+  apiUrlCatalogos: 'http://jportilla-001-site1.etempurl.com',
 };

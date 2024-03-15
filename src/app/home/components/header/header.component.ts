@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
   public nombre : string= "";
   public rol : string= "";
   public mostrar :boolean = false;
+  public mostrarFuncionario :boolean = false;
   items: MenuItem[] ;
   itemsAdmin: MenuItem[] ;
   public nombre1:string = "";
@@ -46,11 +47,18 @@ export class HeaderComponent implements OnInit {
          this.nombre = this.usuariosServicio.getNombreFromToken();
       
          this.rol= this.usuariosServicio.getRoleFromToken();
-       
+       console.log(this.rol)
      
-        if(this.rol==="Administrador" || this.rol=="funcionario" ){
+        if(this.rol==="Administrador" ){
         
           this.mostrar=true;
+          this.mostrarFuncionario=true;
+        }else if(this.rol==="Funcionario"){
+          this.mostrar=false;
+          this.mostrarFuncionario=true;
+        }else{
+          this.mostrar=false;
+          this.mostrarFuncionario=false;
         }
       }
     })

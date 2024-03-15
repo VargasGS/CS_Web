@@ -105,53 +105,65 @@ export class EntregaRecetaComponent implements OnInit {
 
     let infoReceta:EntregaReceta[]=[];
 
-    this.selectedReceta.forEach(receta => {
+    if(this.selectedReceta==undefined){
+      Swal.fire({
+        title: '',
+        text: 'Debe marcar al menos una receta',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
+    }else{
+      this.selectedReceta.forEach(receta => {
 
-      if(receta.observacion==null || receta.observacion==""){
-        Swal.fire({
-          title: '',
-          text: 'Debe ingresar quien recibió los medicamentos',
-          icon: 'info',
-          confirmButtonText: 'Aceptar'
-        });
-
-        this.selectedReceta = [];
-
-      }else{
-
-        let dato : EntregaReceta = {
-          cedula:receta.cedula,
-          nombre:receta.nombre,
-          ebais:receta.ebais,
-          fechaRevision:receta.fechaRevision,
-          idEstadoReceta:6,
-          observacion:receta.observacion
-      
-          } as EntregaReceta;
-      
-          infoReceta.push(dato);
-          this.paquetesServicio.entregarReceta(infoReceta).subscribe({
-            next: (data) => {
-              Swal.fire({
-                title: '',
-                text: 'Proceso realizado con éxito',
-                icon: 'success',
-                confirmButtonText: 'Aceptar',
-                confirmButtonColor: '#8CD4F5',
-              });
-              this.selectedReceta = [];
-              //this.CargarRecetasRevisadas();
-            },
-            error: (e) => {
-              console.log('MarcarEntregada', e);
-            },
+        if(receta.observacion==null || receta.observacion==""){
+          Swal.fire({
+            title: '',
+            text: 'Debe ingresar quien recibió los medicamentos',
+            icon: 'info',
+            confirmButtonText: 'Aceptar'
           });
+  
+          this.selectedReceta = [];
+  
+        }else{
+  
+          let dato : EntregaReceta = {
+            cedula:receta.cedula,
+            nombre:receta.nombre,
+            ebais:receta.ebais,
+            fechaRevision:receta.fechaRevision,
+            idEstadoReceta:6,
+            observacion:receta.observacion
+        
+            } as EntregaReceta;
+        
+            infoReceta.push(dato);
+            this.paquetesServicio.entregarReceta(infoReceta).subscribe({
+              next: (data) => {
+                Swal.fire({
+                  title: '',
+                  text: 'Proceso realizado con éxito',
+                  icon: 'success',
+                  confirmButtonText: 'Aceptar',
+                  confirmButtonColor: '#8CD4F5',
+                });
+                this.selectedReceta = [];
+                this.objRecetasPaquete = [];
+                //this.CargarRecetasRevisadas();
+              },
+              error: (e) => {
+                console.log('MarcarEntregada', e);
+              },
+            });
+  
+        }
+  
+        
+    })
+  
+    }
 
-      }
-
-      
-  })
-
+ 
   
   }
 

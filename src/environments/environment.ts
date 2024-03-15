@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrlCatalogos: 'http://localhost:5137',
+  apiUrlCatalogos: 'http://jportilla-001-site1.etempurl.com',
 };
 
 /*
